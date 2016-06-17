@@ -125,6 +125,9 @@ case "$1" in
     vim)
         setup_vim
         ;;
+    chrome)
+        setup_chrome
+        ;;
     *)
         echo "Options are 'github', 'solarized', 'vim', 'chrome'"
         exit 1

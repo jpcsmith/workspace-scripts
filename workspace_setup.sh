@@ -87,18 +87,18 @@ setup_vim() {
 #
 setup_chrome() {
     echo "Setting up chrome... "
-    printf "• Adding chrome PPA... "
+    printf "- Adding chrome PPA... "
     sudo add-apt-repository "deb http://dl.google.com/linux/chrome/deb/ stable main" \
         || exit 1 && echo "OK"
 
-    printf "• Adding the signing key... "
+    printf "- Adding the signing key... "
     wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - \
         || exit 1 && echo "OK"
 
-    printf "• Updating package list... "
+    printf "- Updating package list... "
     sudo apt-get -qq update || exit 1 && echo "OK"
 
-    printf "• Running installation... "
+    printf "- Running installation... "
     sudo apt-get -qq install google-chrome-stable || exit 1 && echo "OK"
     echo "... Done"
 }
@@ -115,11 +115,14 @@ setup_chrome() {
 printf "Installing software-properties-common... "
 sudo apt-get -qq install software-properties-common || exit 1 && echo "OK"
 
-printf "Adding the universe repository... "
-sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" \
-    || exit 1 && echo "OK"
-sudo apt-get -qq update
-
+# Check for the universe repo
+grep -h "universe" /etc/apt/sources.list > /dev/null 2>&1
+if [[ $? -ne 0 ]]; then
+    printf "Adding the universe repository... "
+    sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" \
+        || exit 1 && echo "OK"
+    sudo apt-get -qq update
+fi
 
 
 # Run the command

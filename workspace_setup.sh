@@ -72,9 +72,9 @@ setup_vim() {
 
     # Install the fonts used for Airline
     printf "Installing airline fonts... "
-    git clone https://github.com/powerline/fonts /tmp/powerline_fonts \
+    git clone https://github.com/powerline/fonts /tmp/powerline_fonts --quiet \
         && pushd /tmp/powerline_fonts \
-        && ./install.sh \
+        && ./install.sh > /dev/null \
         && popd || exit 1 && echo "OK"
 
     echo "------------------------------------------------------------------"

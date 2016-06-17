@@ -39,13 +39,12 @@ setup_vim() {
     dein_github=https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh
     nvim_dir=~/.config/nvim
     # Install NeoVIM
-    sudo apt-get install software-properties-common
     sudo add-apt-repository ppa:neovim-ppa/unstable
     sudo apt-get update
     sudo apt-get install neovim
     sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
     # Link the config file
-    ln -f -s "${BASH_SOURCE%/*}"/resources/init.vim ${nvim_dir}/init.vim
+    ln -f -s $PWD/resources/init.vim ${nvim_dir}/init.vim
     # Download and install the package manager
     mkdir ${nvim_dir}/dein
     curl ${dein_github} > ${install_script}
@@ -61,6 +60,19 @@ setup_vim() {
 }
 
 
+# ---
+# Main logic and checks
+#
+[[ -e bin/setup.sh ]] || { 
+    echo >&2 "Please cd into the bundle before running this script."; 
+    exit 1; 
+}
+# General setup
+sudo apt-get install software-properties-common
+sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
+sudo apt-get update
+
+# Run the command
 case "$1" in 
     github)
         setup_github

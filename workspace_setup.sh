@@ -63,7 +63,7 @@ setup_vim() {
 # ---
 # Main logic and checks
 #
-[[ -e bin/setup.sh ]] || { 
+[[ -e workspace_setup.sh ]] || { 
     echo >&2 "Please cd into the bundle before running this script."; 
     exit 1; 
 }

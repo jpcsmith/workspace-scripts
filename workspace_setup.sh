@@ -86,13 +86,21 @@ setup_vim() {
 # Install the chrome web browser
 #
 setup_chrome() {
-    printf "Downloading chrome... "
-    curl --silent \
-        https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-        > /tmp/chrome.deb
+    echo "Setting up chrome... "
+    printf "• Adding chrome PPA... "
+    sudo add-apt-repository "deb http://dl.google.com/linux/chrome/deb/ stable main" \
+        || exit 1 && echo "OK"
 
-    printf "Installing chrome... "
-    sudo dpkg -i /tmp/chrome.deb || exit 1 && echo "OK"
+    printf "• Adding the signing key... "
+    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - \
+        || exit 1 && echo "OK"
+
+    printf "• Updating package list... "
+    sudo apt-get -qq update || exit 1 && echo "OK"
+
+    prinf "• Running installation... "
+    sudo apt-get -qq install google-chrome-stable || exit 1 && echo "OK"
+    echo "... Done"
 }
 
 

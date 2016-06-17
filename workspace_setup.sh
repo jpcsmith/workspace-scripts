@@ -46,26 +46,53 @@ setup_vim() {
     dein_github=https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh
     nvim_dir=~/.config/nvim
     # Install NeoVIM
-    sudo add-apt-repository ppa:neovim-ppa/unstable
-    sudo apt-get -qq update
-    sudo apt-get -qq install neovim
-    sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60
+    printf "Adding neovim repository... "
+    sudo add-apt-repository ppa:neovim-ppa/unstable && sudo apt-get -qq update \
+        || exit 1 && echo "OK"
+
+    printf "Installing neovim... "
+    sudo apt-get -qq install neovim || exit 1 && echo "OK"
+
+    printf "Setting neovim as vim alternative... "
+    sudo update-alternatives --install /usr/bin/vim vim /usr/bin/nvim 60 \
+        || exit 1 && echo "OK"
+
     # Link the config file
-    ln -f -s -t ${nvim_dir} $PWD/resources/init.vim || exit 1
+    printf "Creating a symlink to the init.vim... "
+    ln -f -s -t ${nvim_dir} $PWD/resources/init.vim || exit 1 && echo "OK"
+
     # Download and install the package manager
-    mkdir ${nvim_dir}/dein
-    curl ${dein_github} > ${install_script}
-    sh ${install_script} ${nvim_dir}/dein
+    printf "Install dein package manager for nvim... "
+    mkdir ${nvim_dir}/dein \
+        && curl ${dein_github} > ${install_script} \
+        && sh ${install_script} ${nvim_dir}/dein \
+        || exit 1 && echo "OK"
+
     # Install the fonts used for Airline
-    git clone https://github.com/powerline/fonts /tmp/powerline_fonts
-    pushd /tmp/powerline_fonts
-    ./install.sh
-    popd
+    printf "Installing airline fonts... "
+    git clone https://github.com/powerline/fonts /tmp/powerline_fonts \
+        && pushd /tmp/powerline_fonts \
+        && ./install.sh \
+        && popd || exit 1 && echo "OK"
 
     echo "------------------------------------------------------------------"
     echo "Please set the font (Edit > Profile Preferences) to:"
     echo "  \"DejaVu Sans Mono for Powerline Book, 11.5\""
     echo "And checkout the "linter" repo in jedi once plugins are installed."
+}
+
+
+# ---
+# Install the chrome web browser
+#
+setup_chrome() {
+    printf "Downloading chrome... "
+    curl --silent \
+        https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+        > /tmp/chrome.deb
+
+    printf "Installing chrome... "
+    sudo dpkg -i /tmp/chrome.deb || exit 1 && echo "OK"
 }
 
 
@@ -77,9 +104,15 @@ setup_vim() {
     exit 1; 
 }
 # General setup
-sudo apt-get -qq install software-properties-common
-sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe"
+printf "Installing software-properties-common... "
+sudo apt-get -qq install software-properties-common || exit 1 && echo "OK"
+
+printf "Adding the universe repository... "
+sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" \
+    || exit 1 && echo "OK"
 sudo apt-get -qq update
+
+
 
 # Run the command
 case "$1" in 
@@ -93,6 +126,6 @@ case "$1" in
         setup_vim
         ;;
     *)
-        echo "Options are 'github', 'solarized'"
+        echo "Options are 'github', 'solarized', 'vim', 'chrome'"
         exit 1
 esac

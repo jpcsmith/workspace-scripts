@@ -1,17 +1,20 @@
 #! /bin/bash
 
-
 # ---
 # Display the SSH public key to be added to github
 #
 # Generates a new key if it does not exist.
 setup_github() {
-    sudo apt-get -qq install xclip
-    # Make the .ssh directory if it doesnt exist
+    printf "Installing xclip... "
+    sudo apt-get -qq install xclip || exit 1 && echo "OK"
+    # Create the id file if it doesnt exist
+    printf "Checking for an id file... "
     if [[ ! -f ~/.ssh/id_rsa ]]; then
-        ssh-keygen -t rsa -b 4096 -C "jpc.smith@yahoo.com" \
+        echo "None"
+        printf "  Creating a new id file... "
+        ssh-keygen -q -t rsa -b 4096 -C "jpc.smith@yahoo.com" \
             -f ~/.ssh/id_rsa \
-            -N ""
+            -N "" || exit 1 && echo "OK"
         ssh-add ~/.ssh/id_rsa
     fi
     xclip -sel clip < ~/.ssh/id_rsa.pub
@@ -25,10 +28,12 @@ setup_github() {
 # Download the solarized theme for gnome-terminal
 #
 setup_solarized() {
-    sudo apt-get -qq install dconf-cli
+    printf "Installing dconf-cli... "
+    sudo apt-get -qq install dconf-cli || exit 1 && echo "OK"
+    printf "Cloning solarized to /tmp/solarized... "
     git clone \
         https://github.com/Anthony25/gnome-terminal-colors-solarized.git \
-        /tmp/solarized
+        /tmp/solarized --quiet || exit 1 && echo "OK"
     echo "Solarized cloned to /tmp/solarized, go and set dark."
 }
 

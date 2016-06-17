@@ -98,7 +98,7 @@ setup_chrome() {
     printf "• Updating package list... "
     sudo apt-get -qq update || exit 1 && echo "OK"
 
-    prinf "• Running installation... "
+    printf "• Running installation... "
     sudo apt-get -qq install google-chrome-stable || exit 1 && echo "OK"
     echo "... Done"
 }

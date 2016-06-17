@@ -47,7 +47,7 @@ setup_vim() {
     nvim_dir=~/.config/nvim
     # Install NeoVIM
     printf "Adding neovim repository... "
-    sudo add-apt-repository ppa:neovim-ppa/unstable && sudo apt-get -qq update \
+    sudo add-apt-repository -y ppa:neovim-ppa/unstable && sudo apt-get -qq update \
         || exit 1 && echo "OK"
 
     printf "Installing neovim... "
@@ -59,7 +59,9 @@ setup_vim() {
 
     # Link the config file
     printf "Creating a symlink to the init.vim... "
-    ln -f -s -t ${nvim_dir} $PWD/resources/init.vim || exit 1 && echo "OK"
+    mkdir ${nvim_dir} \
+        && ln -f -s -t ${nvim_dir} $PWD/resources/init.vim \
+        || exit 1 && echo "OK"
 
     # Download and install the package manager
     printf "Install dein package manager for nvim... "
@@ -88,7 +90,7 @@ setup_vim() {
 setup_chrome() {
     echo "Setting up chrome... "
     printf "- Adding chrome PPA... "
-    sudo add-apt-repository "deb http://dl.google.com/linux/chrome/deb/ stable main" \
+    sudo add-apt-repository -y "deb http://dl.google.com/linux/chrome/deb/ stable main" \
         || exit 1 && echo "OK"
 
     printf "- Adding the signing key... "
@@ -119,7 +121,7 @@ sudo apt-get -qq install software-properties-common || exit 1 && echo "OK"
 grep -h "universe" /etc/apt/sources.list > /dev/null 2>&1
 if [[ $? -ne 0 ]]; then
     printf "Adding the universe repository... "
-    sudo add-apt-repository "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" \
+    sudo add-apt-repository -y "deb http://archive.ubuntu.com/ubuntu $(lsb_release -sc) universe" \
         || exit 1 && echo "OK"
     sudo apt-get -qq update
 fi

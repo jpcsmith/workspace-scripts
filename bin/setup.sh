@@ -1,4 +1,4 @@
-#! /usr/bin/env sh
+#! /usr/bin/env bash
 
 # ---
 # Display the SSH public key to be added to github
@@ -7,7 +7,7 @@
 setup_github() {
     sudo apt-get install xclip
     # Make the .ssh directory if it doesnt exist
-    if ! [[ -f ~/.ssh/id_rsa ]]; then
+    if [[ ! -f ~/.ssh/id_rsa ]]; then
         ssh-keygen -t rsa -b 4096 -C "jpc.smith@yahoo.com" \
             -f ~/.ssh/id_rsa \
             -N ""

@@ -95,18 +95,18 @@ setup_chrome() {
     # Check if we can just download chrome
     apt-cache show google-chrome-stable > /dev/null 2>&1
     if [[ $? -ne 0 ]]; then
-        printf "- Adding chrome PPA... "
+        printf "  Adding chrome PPA... "
         sudo add-apt-repository -y "deb http://dl.google.com/linux/chrome/deb/ stable main" \
             || exit 1 && echo "OK"
 
-        printf "- Adding the signing key... "
+        printf "  Adding the signing key... "
         wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - \
             || exit 1 && echo "OK"
 
-        printf "- Updating package list... "
+        printf "  Updating package list... "
         sudo apt-get -qq update || exit 1 && echo "OK"
     fi
-    printf "- Running installation... "
+    printf "  Running installation... "
     sudo apt-get -qq install google-chrome-stable || exit 1 && echo "OK"
     echo "... Done"
 }

@@ -46,9 +46,12 @@ setup_vim() {
     dein_github=https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh
     nvim_dir=~/.config/nvim
     # Install NeoVIM
-    printf "Adding neovim repository... "
-    sudo add-apt-repository -y ppa:neovim-ppa/unstable && sudo apt-get -qq update \
-        || exit 1 && echo "OK"
+    apt-cache show neovim > /dev/null 2>&1
+    if [[ $? -ne 0 ]]; then
+        printf "Adding neovim repository... "
+        sudo add-apt-repository -y ppa:neovim-ppa/unstable && sudo apt-get -qq update \
+            || exit 1 && echo "OK"
+    fi
 
     printf "Installing neovim... "
     sudo apt-get -qq install neovim || exit 1 && echo "OK"
@@ -89,17 +92,20 @@ setup_vim() {
 #
 setup_chrome() {
     echo "Setting up chrome... "
-    printf "- Adding chrome PPA... "
-    sudo add-apt-repository -y "deb http://dl.google.com/linux/chrome/deb/ stable main" \
-        || exit 1 && echo "OK"
+    # Check if we can just download chrome
+    apt-cache show google-chrome-stable > /dev/null 2>&1
+    if [[ $? -ne 0 ]]; then
+        printf "- Adding chrome PPA... "
+        sudo add-apt-repository -y "deb http://dl.google.com/linux/chrome/deb/ stable main" \
+            || exit 1 && echo "OK"
 
-    printf "- Adding the signing key... "
-    wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - \
-        || exit 1 && echo "OK"
+        printf "- Adding the signing key... "
+        wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - \
+            || exit 1 && echo "OK"
 
-    printf "- Updating package list... "
-    sudo apt-get -qq update || exit 1 && echo "OK"
-
+        printf "- Updating package list... "
+        sudo apt-get -qq update || exit 1 && echo "OK"
+    fi
     printf "- Running installation... "
     sudo apt-get -qq install google-chrome-stable || exit 1 && echo "OK"
     echo "... Done"

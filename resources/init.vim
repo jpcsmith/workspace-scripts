@@ -120,7 +120,7 @@ let g:deoplete#enable_at_startup = 1
     let g:syntastic_python_checkers = ['python', 'flake8', 'pylint']
     let g:syntastic_python_pylint_post_args='--disable=W0511,C0330'
     let g:syntastic_python_mypy_args='--almost-silent --check-untyped-defs'
-    let g:syntastic_python_flake8_post_args='--max-line-length=80 --disable=W503'
+    let g:syntastic_python_flake8_post_args='--max-line-length=80'
     let g:syntastic_python_mypy_quiet_messages = {
                 \ 'regex': ['"bytes" has no attribute "hex"',
                 \           '"int" has no attribute "name"'] }

@@ -62,13 +62,13 @@ setup_vim() {
 
     # Link the config file
     printf "Creating a symlink to the init.vim... "
-    mkdir ${nvim_dir} \
+    mkdir -p ${nvim_dir} \
         && ln -f -s -t ${nvim_dir} $PWD/resources/init.vim \
         || exit 1 && echo "OK"
 
     # Download and install the package manager
     printf "Install dein package manager for nvim... "
-    mkdir ${nvim_dir}/dein \
+    mkdir -p ${nvim_dir}/dein \
         && curl ${dein_github} > ${install_script} \
         && sh ${install_script} ${nvim_dir}/dein \
         || exit 1 && echo "OK"

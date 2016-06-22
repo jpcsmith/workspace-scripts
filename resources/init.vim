@@ -22,6 +22,7 @@ call dein#add('Shougo/dein.vim')
 " General plugins
 call dein#add('tpope/vim-fugitive')
 call dein#add('ctrlpvim/ctrlp.vim')
+call dein#add('kshenoy/vim-signature')
 " call dein#add('Valloric/YouCompleteMe')
 " call dein#add('Shougo/deoplete.nvim')
 call dein#add('kassio/neoterm')

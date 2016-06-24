@@ -172,6 +172,7 @@ let g:deoplete#enable_at_startup = 1
     autocmd FileType python set cc=80
     autocmd FileType python noremap <silent> <F4> :! clear && python3 %<CR>
     autocmd FileType plantuml set ts=2 sts=2 sw=2
+    autocmd FileType elm set number cc=80
     autocmd FileType typescript set ts=2 sts=2 sw=2 number
 " }
 "

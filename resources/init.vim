@@ -24,7 +24,7 @@ call dein#add('tpope/vim-fugitive')
 call dein#add('ctrlpvim/ctrlp.vim')
 call dein#add('kshenoy/vim-signature')
 " call dein#add('Valloric/YouCompleteMe')
-" call dein#add('Shougo/deoplete.nvim')
+call dein#add('Shougo/deoplete.nvim')
 call dein#add('kassio/neoterm')
 call dein#add('scrooloose/syntastic')
 call dein#add('neomake/neomake')
@@ -46,6 +46,15 @@ call dein#add('shawncplus/phpcomplete.vim')
 
 " Elm
 call dein#add('ElmCast/elm-vim')
+
+" Plantuml
+call dein#add('aklt/plantuml-syntax')
+
+" Javascript
+call dein#add('pangloss/vim-javascript')
+
+" LaTeX
+call dein#add('lervag/vimtex')
 
 " call dein#add('Shougo/neosnippet.vim')
 " call dein#add('Shougo/neosnippet-snippets')
@@ -119,12 +128,14 @@ let g:deoplete#enable_at_startup = 1
     let g:syntastic_python_flake8_exec = 'flake8'
     let g:syntastic_python_mypy_exec = 'mypy'
     let g:syntastic_python_checkers = ['python', 'flake8', 'pylint']
-    let g:syntastic_python_pylint_post_args='--disable=W0511,C0330'
-    let g:syntastic_python_mypy_args='--almost-silent --check-untyped-defs'
+    let g:syntastic_python_pylint_post_args='--disable=W0511,C0330,C0413'
+    let g:syntastic_python_mypy_args='--almost-silent'
     " let g:syntastic_python_flake8_post_args='--max-line-length=80 --ignore=F401'
     let g:syntastic_python_mypy_quiet_messages = {
                 \ 'regex': ['"bytes" has no attribute "hex"',
-                \           '"int" has no attribute "name"'] }
+                \           '"int" has no attribute "name"',
+                \           'Cannot find module named',
+                \           'No library stub file for'] }
 
     " let g:syntastic_mode_map = { 'passive_filetypes': ['python'] }
     autocmd FileType python noremap <silent> <F3> :SyntasticCheck mypy<CR>
@@ -174,6 +185,7 @@ let g:deoplete#enable_at_startup = 1
     autocmd FileType plantuml set ts=2 sts=2 sw=2
     autocmd FileType elm set number cc=80
     autocmd FileType typescript set ts=2 sts=2 sw=2 number
+    autocmd FileType tex set ts=2 sts=2 sw=2 number
 " }
 "
 " Pymode (PYM) {
@@ -215,6 +227,7 @@ let g:deoplete#enable_at_startup = 1
     let g:neoterm_position = 'horizontal'
     let g:neoterm_size = 15
     let g:neoterm_automap_keys = ',tt'
+    let g:f5_args = ""
 
     nnoremap <silent> <f10> :TREPLSendFile<cr>
     nnoremap <silent> <f9> :TREPLSend<cr>
@@ -235,9 +248,8 @@ let g:deoplete#enable_at_startup = 1
     nnoremap <silent> <leader>tc :call neoterm#kill()<cr>
 
 
-    " nnoremap <silent> <f5> let main_file = expand("%:p")<cr>
     nnoremap <silent> <leader><F5> :let main_file = expand("%:p") <bar> echo "Main file set to :" expand("%:p") <cr>
-    nnoremap <silent> <F5> :call neoterm#do("clear && python3 ".main_file)  <cr>
+    nnoremap <silent> <F5> :call neoterm#do("clear && python3 " . main_file . " " . f5_args)  <cr>
     nnoremap <silent> <leader><esc> :call neoterm#close() <bar> SyntasticReset<cr>
 " }
 "
@@ -246,6 +258,7 @@ let g:deoplete#enable_at_startup = 1
     autocmd FileType python set cc=80
     autocmd FileType plantuml set ts=2 sts=2 sw=2
     autocmd FileType typescript set ts=2 sts=2 sw=2 number
+    autocmd FileType javascript set ts=2 sts=2 sw=2 number
 " }
 
 " Neomake (NMK) {
@@ -255,3 +268,33 @@ let g:deoplete#enable_at_startup = 1
 " }
 
 
+" Elm-VIM (ELM)
+let g:elm_jump_to_error = 0
+let g:elm_make_output_file = "elm.js"
+let g:elm_make_show_warnings = 0
+let g:elm_syntastic_show_warnings = 0
+let g:elm_browser_command = ""
+let g:elm_detailed_complete = 0
+let g:elm_format_autosave = 0
+let g:elm_setup_keybindings = 1
+let g:elm_classic_hightlighting = 0
+
+let g:elm_format_autosave = 1
+
+autocmd FileType elm call deoplete#enable()
+let g:deoplete#omni_patterns = {}
+let g:deoplete#omni_patterns.elm = '\.'
+
+if !exists('g:deoplete#omni#input_patterns')
+      let g:deoplete#omni#input_patterns = {}
+  endif
+  let g:deoplete#omni#input_patterns.tex = '\\(?:'
+        \ .  '\w*cite\w*(?:\s*\[[^]]*\]){0,2}\s*{[^}]*'
+        \ . '|\w*ref(?:\s*\{[^}]*|range\s*\{[^,}]*(?:}{)?)'
+        \ . '|hyperref\s*\[[^]]*'
+        \ . '|includegraphics\*?(?:\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+        \ . '|(?:include(?:only)?|input)\s*\{[^}]*'
+        \ . '|\w*(gls|Gls|GLS)(pl)?\w*(\s*\[[^]]*\]){0,2}\s*\{[^}]*'
+        \ . '|includepdf(\s*\[[^]]*\])?\s*\{[^}]*'
+        \ . '|includestandalone(\s*\[[^]]*\])?\s*\{[^}]*'
+        \ .')'

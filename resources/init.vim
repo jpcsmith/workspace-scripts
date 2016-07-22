@@ -128,7 +128,7 @@ let g:deoplete#enable_at_startup = 1
     let g:syntastic_python_flake8_exec = 'flake8'
     let g:syntastic_python_mypy_exec = 'mypy'
     let g:syntastic_python_checkers = ['python', 'flake8', 'pylint']
-    let g:syntastic_python_pylint_post_args='--disable=W0511,C0330,C0413'
+    let g:syntastic_python_pylint_post_args='--max-line-length=80 --disable=W0511,C0330,C0413'
     let g:syntastic_python_mypy_args='--almost-silent'
     " let g:syntastic_python_flake8_post_args='--max-line-length=80 --ignore=F401'
     let g:syntastic_python_mypy_quiet_messages = {

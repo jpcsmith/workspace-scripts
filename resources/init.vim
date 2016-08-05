@@ -106,7 +106,7 @@ let g:deoplete#enable_at_startup = 1
 " }
 
 " CtrlP (CTP) {
-    let g:ctrlp_custom_ignore = 'node_modules\|git\|docs\|pycache\|*.pyc'
+    let g:ctrlp_custom_ignore = 'elm-stuff\|node_modules\|git\|docs\|pycache\|*.pyc'
 " }
 
 " Neomake (NEO) {
@@ -146,10 +146,12 @@ let g:deoplete#enable_at_startup = 1
     " SCSS
     let g:syntastic_scss_checkers = ['scss_lint']
     " Javascript
-    let g:syntastic_javascript_checkers = ['jshint']
+    let g:syntastic_javascript_checkers = ['jshint', 'eslint']
     " Typescript
     let g:syntastic_typescript_checkers = ['tsc', 'tslint']
     let g:syntastic_typescript_tsc_fname = ''
+
+    let g:syntastic_rst_checkers = ['sphinx']
 
 " }
 
@@ -174,6 +176,8 @@ let g:deoplete#enable_at_startup = 1
     set background=dark
     colorscheme solarized
 
+    set completeopt="menuone,longest"
+
     " Location list navigation.
     nnoremap ]l :lnext<CR>
     nnoremap [l :lprevious<CR>
@@ -186,6 +190,7 @@ let g:deoplete#enable_at_startup = 1
     autocmd FileType elm set number cc=80
     autocmd FileType typescript set ts=2 sts=2 sw=2 number
     autocmd FileType tex set ts=2 sts=2 sw=2 number
+    autocmd FileType scss set ts=2 sts=2 sw=2 number cc=80
 " }
 "
 " Pymode (PYM) {

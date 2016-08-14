@@ -78,6 +78,23 @@ endif
 
 "End dein Scripts-------------------------
 
+function ConfigureLaTeX()
+    set ts=2 sts=2 sw=2 number
+
+    " Visually wrap lines on words
+    set wrap linebreak nolist breakindent
+    " Regular text-editor line navigation
+    nnoremap j gj
+    nnoremap k gk
+    vnoremap j gj
+    vnoremap k gk
+    " Strip trailing whitespaces
+    autocmd BufWritePre * %s/\s\+$//e
+    " Switch on spell checking
+    setlocal spell spelllang=en_gb
+endfunction
+
+
 " Neovim (NEO) {
     " Clear search highlight on screen redraw
     nnoremap <silent> <C-l> :nohlsearch<CR><C-l> 
@@ -192,7 +209,7 @@ let g:deoplete#enable_at_startup = 1
     autocmd FileType plantuml set ts=2 sts=2 sw=2
     autocmd FileType elm set number cc=80
     autocmd FileType typescript set ts=2 sts=2 sw=2 number
-    autocmd FileType tex set ts=2 sts=2 sw=2 number
+    autocmd FileType tex call ConfigureLaTeX()
     autocmd FileType scss set ts=2 sts=2 sw=2 number cc=80
 " }
 "

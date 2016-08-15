@@ -44,6 +44,9 @@ call dein#add('dsawardekar/wordpress.vim')
 call dein#add('StanAngeloff/php.vim')
 call dein#add('shawncplus/phpcomplete.vim')
 
+" Web
+call dein#add('cakebaker/scss-syntax.vim')
+
 " Elm
 call dein#add('ElmCast/elm-vim')
 
@@ -280,9 +283,10 @@ let g:deoplete#enable_at_startup = 1
 "
 " Lazy filetype customizations (LFT) {
     autocmd FileType python set cc=80
-    autocmd FileType plantuml set ts=2 sts=2 sw=2
+    autocmd FileType plantuml set ts=2 sts=2 sw=2 number
     autocmd FileType typescript set ts=2 sts=2 sw=2 number
     autocmd FileType javascript set ts=2 sts=2 sw=2 number
+    autocmd FileType scss set ts=2 sts=2 sw=2 number
 " }
 
 " Neomake (NMK) {

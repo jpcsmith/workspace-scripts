@@ -198,6 +198,8 @@ let g:deoplete#enable_at_startup = 1
     " Location list navigation.
     nnoremap ]l :lnext<CR>
     nnoremap [l :lprevious<CR>
+
+    let g:tex_flavor='latex'
 " }
 
 " Lazy filetype customizations (LFT) {

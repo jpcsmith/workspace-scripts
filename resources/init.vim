@@ -78,7 +78,7 @@ endif
 
 "End dein Scripts-------------------------
 
-function SetTrimWhitespaceOnSave() 
+function SetTrimWhitespaceOnSave()
     autocmd BufWritePre * %s/\s\+$//e
 endfunction
 
@@ -94,14 +94,16 @@ function ConfigureLaTeX()
     vnoremap k gk
     " Switch on spell checking
     setlocal spell spelllang=en_gb
+    " Include dashes in autocomplete, etc.
+    set iskeyword+=-
 
-    SetTrimWhitespaceOnSave()
+    call SetTrimWhitespaceOnSave()
 endfunction
 
 
 " Neovim (NEO) {
     " Clear search highlight on screen redraw
-    nnoremap <silent> <C-l> :nohlsearch<CR><C-l> 
+    nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
 
     " Exit terminal
     tnoremap <Esc> <C-\><C-n>
@@ -134,9 +136,9 @@ let g:deoplete#enable_at_startup = 1
 " }
 
 " Neomake (NEO) {
-" let g:neomake_python_enabled_markers = ['python', 'flake8', 'pylint'] 
+" let g:neomake_python_enabled_markers = ['python', 'flake8', 'pylint']
 " }
-    
+
 " Syntastic (SYN) {
     " let g:syntastic_debug = 3
     set statusline+=%#warningmsg#
@@ -166,7 +168,7 @@ let g:deoplete#enable_at_startup = 1
     autocmd FileType python noremap <silent> <F2> :SyntasticReset<CR>
     autocmd FileType python command! Pylint SyntasticCheck pylint
     autocmd FileType python command! Mypy SyntasticCheck mypy
-    
+
     " SCSS
     let g:syntastic_scss_checkers = ['scss_lint']
     " Javascript

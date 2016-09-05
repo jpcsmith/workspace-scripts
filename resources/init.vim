@@ -82,21 +82,26 @@ function SetTrimWhitespaceOnSave()
     autocmd BufWritePre * %s/\s\+$//e
 endfunction
 
-function ConfigureLaTeX()
-    set ts=2 sts=2 sw=2 number
-
+function SetTextEditorDefaults()
     " Visually wrap lines on words
     set wrap linebreak nolist breakindent
+    " Switch on spell checking
+    setlocal spell spelllang=en_gb
     " Regular text-editor line navigation
     nnoremap j gj
     nnoremap k gk
     vnoremap j gj
     vnoremap k gk
-    " Switch on spell checking
-    setlocal spell spelllang=en_gb
+endfunction
+
+
+function ConfigureLaTeX()
+    set ts=2 sts=2 sw=2 number
+
     " Include dashes in autocomplete, etc.
     set iskeyword+=-
 
+    call SetTextEditorDefaults()
     call SetTrimWhitespaceOnSave()
 endfunction
 
@@ -214,13 +219,15 @@ let g:deoplete#enable_at_startup = 1
 " Lazy filetype customizations (LFT) {
     autocmd FileType python set cc=80
     autocmd FileType python noremap <silent> <F4> :! clear && python3 %<CR>
-    autocmd FileType plantuml set ts=2 sts=2 sw=2
+    autocmd FileType plantuml set ts=2 sts=2 sw=2 number
     autocmd FileType elm set number cc=80
     autocmd FileType typescript set ts=2 sts=2 sw=2 number
     autocmd FileType tex call ConfigureLaTeX()
     autocmd FileType javascript call SetTrimWhitespaceOnSave()
     autocmd FileType scss set ts=2 sts=2 sw=2 number cc=80
+    autocmd FileType rst call SetTextEditorDefaults()
 " }
+
 "
 " Pymode (PYM) {
     let g:pymode_rope = 0
@@ -288,14 +295,6 @@ let g:deoplete#enable_at_startup = 1
 " }
 "
 "
-" Lazy filetype customizations (LFT) {
-    autocmd FileType python set cc=80
-    autocmd FileType plantuml set ts=2 sts=2 sw=2 number
-    autocmd FileType typescript set ts=2 sts=2 sw=2 number
-    autocmd FileType javascript set ts=2 sts=2 sw=2 number
-    autocmd FileType scss set ts=2 sts=2 sw=2 number
-" }
-
 " Neomake (NMK) {
     let g:neomake_open_list = 2
     let g:neomake_python_enabled_makers = ['python', 'flake8', 'pylint']

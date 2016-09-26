@@ -224,7 +224,7 @@ let g:deoplete#enable_at_startup = 1
     autocmd FileType typescript set ts=2 sts=2 sw=2 number
     autocmd FileType tex call ConfigureLaTeX()
     autocmd FileType javascript call SetTrimWhitespaceOnSave()
-    autocmd FileType scss set ts=2 sts=2 sw=2 number cc=80
+    autocmd FileType scss set ts=2 sts=2 sw=2 number cc=80 <Bar> call SetTrimWhitespaceOnSave()
     autocmd FileType rst call SetTextEditorDefaults()
 " }
 

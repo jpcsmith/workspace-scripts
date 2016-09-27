@@ -105,6 +105,11 @@ function ConfigureLaTeX()
     call SetTrimWhitespaceOnSave()
 endfunction
 
+function ConfigureSCSS()
+    set ts=2 sts=2 sw=2 number cc=80 
+    call SetTrimWhitespaceOnSave()
+endfunction
+
 
 " Neovim (NEO) {
     " Clear search highlight on screen redraw
@@ -224,7 +229,7 @@ let g:deoplete#enable_at_startup = 1
     autocmd FileType typescript set ts=2 sts=2 sw=2 number
     autocmd FileType tex call ConfigureLaTeX()
     autocmd FileType javascript call SetTrimWhitespaceOnSave()
-    autocmd FileType scss set ts=2 sts=2 sw=2 number cc=80 <Bar> call SetTrimWhitespaceOnSave()
+    autocmd FileType scss call ConfigureSCSS()
     autocmd FileType rst call SetTextEditorDefaults()
 " }
 
@@ -305,8 +310,8 @@ let g:deoplete#enable_at_startup = 1
 " Elm-VIM (ELM)
 let g:elm_jump_to_error = 0
 let g:elm_make_output_file = "elm.js"
-let g:elm_make_show_warnings = 0
-let g:elm_syntastic_show_warnings = 0
+let g:elm_make_show_warnings = 1
+let g:elm_syntastic_show_warnings = 1
 let g:elm_browser_command = ""
 let g:elm_detailed_complete = 0
 let g:elm_format_autosave = 0

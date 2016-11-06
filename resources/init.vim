@@ -107,6 +107,7 @@ endfunction
 
 function ConfigureSCSS()
     set ts=2 sts=2 sw=2 number cc=80 
+    set iskeyword+=\-
     call SetTrimWhitespaceOnSave()
 endfunction
 

@@ -34,6 +34,10 @@ call dein#add('vim-airline/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
 call dein#add('altercation/vim-colors-solarized')
 
+" C++
+call dein#add('zchee/deoplete-clang')
+call dein#add('octol/vim-cpp-enhanced-highlight')
+
 " Python
 " call dein#add('zchee/deoplete-jedi')
 call dein#add('davidhalter/jedi-vim')
@@ -109,6 +113,20 @@ function ConfigureSCSS()
     set ts=2 sts=2 sw=2 number cc=80 
     set iskeyword+=\-
     call SetTrimWhitespaceOnSave()
+endfunction
+
+
+function ConfigureCpp()
+    " --- General
+    set ts=2 sts=2 sw=2 number
+    " --- Deoplete
+    let g:deoplete#sources#clang#libclang_path = 
+        \ "/usr/lib/llvm-3.8/lib/libclang.so.1"
+    let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
+
+    " --- Syntastic
+    let g:syntastic_cpp_checkers = ['clang_check']", 'clang_tidy']
+    let g:syntastic_cpp_clang_tidy_args = "-checks=*,-clang-analyzer-alpha.*,-llvm-include-order"
 endfunction
 
 
@@ -232,6 +250,7 @@ let g:deoplete#enable_at_startup = 1
     autocmd FileType javascript call SetTrimWhitespaceOnSave()
     autocmd FileType scss call ConfigureSCSS()
     autocmd FileType rst call SetTextEditorDefaults()
+    autocmd FileType cpp call ConfigureCpp()
 " }
 
 "

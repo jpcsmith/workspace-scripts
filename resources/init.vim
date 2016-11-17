@@ -125,8 +125,10 @@ function ConfigureCpp()
     let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
 
     " --- Syntastic
-    let g:syntastic_cpp_checkers = ['clang_check']", 'clang_tidy']
-    let g:syntastic_cpp_clang_tidy_args = "-checks=*,-clang-analyzer-alpha.*,-llvm-include-order"
+    let g:syntastic_cpp_checkers = ['clang_check']
+    let g:syntastic_cpp_clang_tidy_args = '-checks=*,-clang-analyzer-alpha.*,-llvm-include-order'
+	let g:syntastic_cpp_clang_check_args = '-extra-arg="-std=c++11"'
+	let g:syntastic_cpp_compiler_options = '-std=c++11'
 endfunction
 
 

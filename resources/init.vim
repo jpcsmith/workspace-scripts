@@ -54,9 +54,9 @@ call dein#add('octol/vim-cpp-enhanced-highlight')
 call dein#add('brookhong/cscope.vim')
  
 " " Python
-" " call dein#add('zchee/deoplete-jedi')
+call dein#add('zchee/deoplete-jedi')
 " call dein#add('davidhalter/jedi-vim')
-" call dein#add('klen/python-mode')
+call dein#add('klen/python-mode')
 " 
 " " PHP & Wordpress bundles
 " call dein#add('dsawardekar/wordpress.vim')
@@ -175,6 +175,9 @@ set wildignore=*.o,*.d,*.pyc,*.gch,*.plist
 let g:neomake_list_height = 5
 " Dont jump to the location-list when showing errors.
 let g:neomake_open_list = 2
+" Make on save
+autocmd! BufWritePost * Neomake
+
 
 " --- UltiSnips
 let g:UltiSnipsSnippetsDir = "~/.config/nvim/UltiSnips"
@@ -217,6 +220,34 @@ let g:cscope_silent = 1
 " Hotkeys for toggling the location and quickfix windows
 nmap <leader>l <Plug>QfLtoggle
 nmap <leader>q <Plug>QfCtoggle
+
+
+" --- pymode
+let g:pymode_rope = 0
+let g:pymode_rope_completion = 0
+let g:pymode_rope_goto_definition_bind = '<leader>d'
+let g:pymode_rope_goto_definition_cmd = 'edit'
+let g:pymode_python = 'python3'
+" Documentation
+let g:pymode_doc = 1
+let g:pymode_doc_key = 'K'
+"Linting
+let g:pymode_lint = 0
+" Auto check on save
+let g:pymode_lint_write = 1
+" Support virtualenv
+let g:pymode_virtualenv = 0
+" Enable breakpoints plugin
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_bind = '<leader>b'
+" syntax highlighting
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
+let g:pymode_syntax_indent_errors = g:pymode_syntax_all
+let g:pymode_syntax_space_errors = g:pymode_syntax_all
+" Don't autofold code
+let g:pymode_folding = 0
+
 
 " 
 " Functions

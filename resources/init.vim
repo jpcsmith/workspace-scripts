@@ -165,6 +165,8 @@ let g:airline_symbols.space = "\ua0"
 " --- CtrlP
 " Ignore generated directories
 let g:ctrlp_custom_ignore = 'elm-stuff\|node_modules\|\.git$\|docs\|pycache'
+" Search primarily by filename
+let g:ctrlp_by_filename = 1
 " Ignore byte-files, technically not a CtrlP setting
 set wildignore=*.o,*.d,*.pyc,*.gch,*.plist
 

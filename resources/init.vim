@@ -52,29 +52,29 @@ call dein#add('altercation/vim-colors-solarized')
 call dein#add('zchee/deoplete-clang')
 call dein#add('octol/vim-cpp-enhanced-highlight')
 call dein#add('brookhong/cscope.vim')
- 
+
 " " Python
 call dein#add('zchee/deoplete-jedi')
 " call dein#add('davidhalter/jedi-vim')
 call dein#add('klen/python-mode')
-" 
+"
 " " PHP & Wordpress bundles
 " call dein#add('dsawardekar/wordpress.vim')
 " call dein#add('StanAngeloff/php.vim')
 " call dein#add('shawncplus/phpcomplete.vim')
-" 
+"
 " " Web
 " call dein#add('cakebaker/scss-syntax.vim')
-" 
+"
 " " Elm
 " call dein#add('ElmCast/elm-vim')
-" 
+"
 " " Plantuml
 " call dein#add('aklt/plantuml-syntax')
-" 
+"
 " " Javascript
 " call dein#add('pangloss/vim-javascript')
-" 
+"
 " " LaTeX
 " call dein#add('lervag/vimtex')
 
@@ -141,6 +141,10 @@ nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
 
+" --- Default tex style
+let g:tex_flavor = "context"
+
+
 "
 " Plugin settings
 "
@@ -148,6 +152,7 @@ nnoremap <A-l> <C-w>l
 " --- Deoplete
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#set('clang', 'rank', 999)
+call deoplete#custom#set('jedi', 'rank', 999)
 " Clang customizations
 let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
 let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-3.9/lib/libclang.so.1"
@@ -177,6 +182,7 @@ let g:neomake_list_height = 5
 let g:neomake_open_list = 2
 " Make on save
 autocmd! BufWritePost * Neomake
+noremap <F5> :Neomake!<CR>
 
 
 " --- UltiSnips
@@ -216,7 +222,7 @@ nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>
 let g:cscope_silent = 1
 
 
-" --- vim-qf 
+" --- vim-qf
 " Hotkeys for toggling the location and quickfix windows
 nmap <leader>l <Plug>QfLtoggle
 nmap <leader>q <Plug>QfCtoggle
@@ -249,7 +255,7 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 let g:pymode_folding = 0
 
 
-" 
+"
 " Functions
 "
 function! EnableTrimWhitespaceOnSave()
@@ -257,54 +263,39 @@ function! EnableTrimWhitespaceOnSave()
     autocmd BufWritePre * %s/\s\+$//e
 endfunction
 
+function! SetTextEditorDefaults()
+    " Description: Set the default values when using vim as a text editor.
 
-" let g:tex_flavor='latex'
+    " Visually wrap lines on words
+    set wrap linebreak nolist breakindent
 
-" 
-" function SetTextEditorDefaults()
-"     " Description: Set the default values when using vim as a text editor.
-"     
-"     " Visually wrap lines on words
-"     set wrap linebreak nolist breakindent
-" 
-"     " Switch on spell checking
-"     setlocal spell spelllang=en_gb
-" 
-"     " Regular text-editor line navigation
-"     nnoremap j gj
-"     nnoremap k gk
-"     vnoremap j gj
-"     vnoremap k gk
-" endfunction
-" 
-" 
-" function ConfigureLaTeX()
-"     set ts=2 sts=2 sw=2 number
-" 
-"     " Include dashes in autocomplete, etc.
-"     set iskeyword+=-
-" 
-"     call SetTextEditorDefaults()
-"     call SetTrimWhitespaceOnSave()
-" endfunction
-" 
+    " Switch on spell checking
+    setlocal spell spelllang=en_gb
+
+    " Regular text-editor line navigation
+    nnoremap j gj
+    nnoremap k gk
+    vnoremap j gj
+    vnoremap k gk
+endfunction
+"
 " function ConfigureSCSS()
-"     set tabstop=2 softtabstop=2 shiftwidth=2 colorcolumn=80 number 
+"     set tabstop=2 softtabstop=2 shiftwidth=2 colorcolumn=80 number
 "     set iskeyword+=\-
 "     call SetTrimWhitespaceOnSave()
 " endfunction
-" 
+"
 " " Syntastic (SYN) {
 "     " let g:syntastic_debug = 3
 "     set statusline+=%#warningmsg#
 "     set statusline+=%{SyntasticStatuslineFlag()}
 "     set statusline+=%*
-" 
+"
 "     let g:syntastic_always_populate_loc_list = 1
 "     let g:syntastic_auto_loc_list = 1
 "     let g:syntastic_check_on_open = 1
 "     let g:syntastic_check_on_wq = 0
-" 
+"
 "     let g:syntastic_python_python_exec = 'python3'
 "     let g:syntastic_python_flake8_exec = 'flake8'
 "     let g:syntastic_python_mypy_exec = 'mypy'
@@ -317,14 +308,14 @@ endfunction
 "                 \           '"int" has no attribute "name"',
 "                 \           'Cannot find module named',
 "                 \           'No library stub file for'] }
-" 
+"
 "     " let g:syntastic_mode_map = { 'passive_filetypes': ['python'] }
 "     " autocmd FileType python noremap <silent> <F3> :SyntasticCheck mypy<CR>
 "     autocmd FileType python noremap <silent> <F3> :SyntasticCheck pylint<CR>
 "     autocmd FileType python noremap <silent> <F2> :SyntasticReset<CR>
 "     autocmd FileType python command! Pylint SyntasticCheck pylint
 "     autocmd FileType python command! Mypy SyntasticCheck mypy
-" 
+"
 "     " SCSS
 "     let g:syntastic_scss_checkers = ['scss_lint']
 "     " Javascript
@@ -332,12 +323,12 @@ endfunction
 "     " Typescript
 "     let g:syntastic_typescript_checkers = ['tsc', 'tslint']
 "     let g:syntastic_typescript_tsc_fname = ''
-" 
+"
 "     let g:syntastic_rst_checkers = ['sphinx']
-" 
+"
 " " }
-" 
-" 
+"
+"
 " " Lazy filetype customizations (LFT) {
 "     autocmd FileType python set cc=80
 "     autocmd FileType python noremap <silent> <F4> :! clear && python3 %<CR>
@@ -351,39 +342,39 @@ endfunction
 "     autocmd FileType cpp call ConfigureCpp()
 "     autocmd FileType c call ConfigureC()
 " " }
-" 
+"
 " "
 " " Pymode (PYM) {
 "     let g:pymode_rope = 0
 "     let g:pymode_rope_completion = 0
 "     let g:pymode_rope_goto_definition_bind = '<leader>d'
 "     let g:pymode_rope_goto_definition_cmd = 'edit'
-" 
+"
 "     let g:pymode_python = 'python3'
-" 
+"
 "     " Documentation
 "     let g:pymode_doc = 1
 "     let g:pymode_doc_key = 'K'
-" 
+"
 "     "Linting
 "     let g:pymode_lint = 0
 "     let g:pymode_lint_checkers = ['pyflakes', 'pep8', 'mccabe']
 "     " Auto check on save
 "     let g:pymode_lint_write = 1
-" 
+"
 "     " Support virtualenv
 "     let g:pymode_virtualenv = 0
-" 
+"
 "     " Enable breakpoints plugin
 "     let g:pymode_breakpoint = 1
 "     let g:pymode_breakpoint_bind = '<leader>b'
-" 
+"
 "     " syntax highlighting
 "     let g:pymode_syntax = 1
 "     let g:pymode_syntax_all = 1
 "     let g:pymode_syntax_indent_errors = g:pymode_syntax_all
 "     let g:pymode_syntax_space_errors = g:pymode_syntax_all
-" 
+"
 "     " Don't autofold code
 "     let g:pymode_folding = 0
 " " }
@@ -393,17 +384,17 @@ endfunction
 "     let g:neoterm_size = 15
 "     let g:neoterm_automap_keys = ',tt'
 "     let g:f5_args = ""
-" 
+"
 "     nnoremap <silent> <f10> :TREPLSendFile<cr>
 "     nnoremap <silent> <f9> :TREPLSend<cr>
 "     vnoremap <silent> <f9> :TREPLSend<cr>
-" 
+"
 "     " run set test lib
 "     nnoremap <silent> <leader>rt :call neoterm#test#run('all')<cr>
 "     nnoremap <silent> <leader>rf :call neoterm#test#run('file')<cr>
 "     nnoremap <silent> <leader>rn :call neoterm#test#run('current')<cr>
 "     nnoremap <silent> <leader>rr :call neoterm#test#rerun()<cr>
-" 
+"
 "     " Useful maps
 "     " hide/close terminal
 "     nnoremap <silent> <leader>th :call neoterm#close()<cr>
@@ -411,8 +402,8 @@ endfunction
 "     nnoremap <silent> <leader>tl :call neoterm#clear()<cr>
 "     " kills the current job (send a <c-c>)
 "     nnoremap <silent> <leader>tc :call neoterm#kill()<cr>
-" 
-" 
+"
+"
 "     nnoremap <silent> <leader><F5> :let main_file = expand("%:p") <bar> echo "Main file set to :" expand("%:p") <cr>
 "     nnoremap <silent> <F5> :call neoterm#do("clear && python3 " . main_file . " " . f5_args)  <cr>
 "     nnoremap <silent> <leader><esc> :call neoterm#close() <bar> SyntasticReset<cr>
@@ -429,13 +420,13 @@ endfunction
 " let g:elm_format_autosave = 0
 " let g:elm_setup_keybindings = 1
 " let g:elm_classic_hightlighting = 0
-" 
+"
 " let g:elm_format_autosave = 1
-" 
+"
 " autocmd FileType elm call deoplete#enable()
 " let g:deoplete#omni_patterns = {}
 " let g:deoplete#omni_patterns.elm = '\.'
-" 
+"
 " if !exists('g:deoplete#omni#input_patterns')
 "       let g:deoplete#omni#input_patterns = {}
 "   endif

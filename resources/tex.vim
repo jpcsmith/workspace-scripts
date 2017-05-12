@@ -12,3 +12,7 @@ call SetTextEditorDefaults()
 call EnableTrimWhitespaceOnSave()
 
 let g:neomake_tex_enabled_makers = ['chktex']
+
+" Set colour scheme. The order below matters.
+" set background=light
+" colorscheme solarized

@@ -75,8 +75,8 @@ call dein#add('klen/python-mode')
 " " Javascript
 " call dein#add('pangloss/vim-javascript')
 "
-" " LaTeX
-" call dein#add('lervag/vimtex')
+" LaTeX
+call dein#add('lervag/vimtex')
 
 " You can specify revision/branch/tag.
 " call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
@@ -141,6 +141,17 @@ nnoremap <A-k> <C-w>k
 nnoremap <A-l> <C-w>l
 
 
+" Causes issues with resizing (https://github.com/vim/vim/issues/931).
+let g:qf_loclist_window_bottom = 0
+let g:qf_window_bottom = 0
+
+" Annoying with Neomake, but only on Vim?!
+" Even with let `g:neomake_open_list = 2` !
+let g:qf_auto_open_quickfix = 0
+let g:qf_auto_open_loclist = 0
+
+
+
 " --- Default tex style
 let g:tex_flavor = "context"
 
@@ -169,7 +180,7 @@ let g:airline_symbols.space = "\ua0"
 
 " --- CtrlP
 " Ignore generated directories
-let g:ctrlp_custom_ignore = 'elm-stuff\|node_modules\|\.git$\|docs\|pycache'
+let g:ctrlp_custom_ignore = 'elm-stuff\|node_modules\|\.git$\|docs\|pycache\|site-packages'
 " Search primarily by filename
 let g:ctrlp_by_filename = 1
 " Ignore byte-files, technically not a CtrlP setting

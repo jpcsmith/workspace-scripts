@@ -51,12 +51,13 @@ call dein#add('altercation/vim-colors-solarized')
 " C++
 call dein#add('zchee/deoplete-clang')
 call dein#add('octol/vim-cpp-enhanced-highlight')
-call dein#add('brookhong/cscope.vim')
+" call dein#add('brookhong/cscope.vim')
 
 " " Python
 call dein#add('zchee/deoplete-jedi')
 " call dein#add('davidhalter/jedi-vim')
 call dein#add('klen/python-mode')
+call dein#add('ludovicchabant/vim-gutentags')
 "
 " " PHP & Wordpress bundles
 " call dein#add('dsawardekar/wordpress.vim')
@@ -69,8 +70,8 @@ call dein#add('klen/python-mode')
 " " Elm
 " call dein#add('ElmCast/elm-vim')
 "
-" " Plantuml
-" call dein#add('aklt/plantuml-syntax')
+" Plantuml
+call dein#add('aklt/plantuml-syntax')
 "
 " " Javascript
 " call dein#add('pangloss/vim-javascript')

@@ -24,6 +24,7 @@ call dein#add('Shougo/dein.vim')
 call dein#add('tpope/vim-fugitive')
 " File management
 call dein#add('ctrlpvim/ctrlp.vim')
+" call dein#add('JazzCore/ctrlp-cmatcher')
 " File marks
 call dein#add('kshenoy/vim-signature')
 " Autocomplete
@@ -42,6 +43,7 @@ call dein#add('romainl/vim-qf')
 " call dein#add('Valloric/YouCompleteMe')
 " call dein#add('Shougo/neosnippet.vim')
 " call dein#add('Shougo/neosnippet-snippets')
+call dein#add('nightsense/seabird')
 
 " Status bar
 call dein#add('vim-airline/vim-airline')
@@ -51,7 +53,8 @@ call dein#add('altercation/vim-colors-solarized')
 " C++
 call dein#add('zchee/deoplete-clang')
 call dein#add('octol/vim-cpp-enhanced-highlight')
-" call dein#add('brookhong/cscope.vim')
+call dein#add('nacitar/a.vim')
+call dein#add('brookhong/cscope.vim')
 
 " " Python
 call dein#add('zchee/deoplete-jedi')
@@ -186,6 +189,8 @@ let g:ctrlp_custom_ignore = 'elm-stuff\|node_modules\|\.git$\|docs\|pycache\|sit
 let g:ctrlp_by_filename = 1
 " Ignore byte-files, technically not a CtrlP setting
 set wildignore=*.o,*.d,*.pyc,*.gch,*.plist
+" Use custom matcher
+" let g:ctrlp_match_func = {'match' : 'matcher#cmatch'}
 
 
 " --- Neomake
@@ -193,7 +198,7 @@ let g:neomake_list_height = 5
 " Dont jump to the location-list when showing errors.
 let g:neomake_open_list = 2
 " Make on save
-autocmd! BufWritePost * Neomake
+autocmd! BufWritePost *.[^h]* Neomake
 noremap <F5> :Neomake!<CR>
 
 

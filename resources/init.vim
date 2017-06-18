@@ -73,8 +73,8 @@ call dein#add('klen/python-mode')
 " call dein#add('aklt/plantuml-syntax')
 "
 " " Javascript
-" call dein#add('pangloss/vim-javascript')
-"
+call dein#add('pangloss/vim-javascript')
+
 " " LaTeX
 " call dein#add('lervag/vimtex')
 
@@ -155,7 +155,7 @@ call deoplete#custom#set('clang', 'rank', 999)
 call deoplete#custom#set('jedi', 'rank', 999)
 " Clang customizations
 let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
-let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-3.9/lib/libclang.so.1"
+let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-3.8/lib/libclang.so.1"
 
 
 " --- Airline

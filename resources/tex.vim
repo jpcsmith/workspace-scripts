@@ -12,6 +12,8 @@ let g:neomake_tex_pdflatex_errorformat =  '%-G%.%#'
 
 let g:neomake_tex_enabled_makers = ['chktex', 'pdflatex', 'rubberinfo']
 
+" Use US-english for NetSec writing
+setlocal spell spelllang=en_us
 
 " Set colour scheme. The order below matters.
 " set background=light

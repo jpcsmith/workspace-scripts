@@ -2,6 +2,8 @@
 let g:python_host_prog = '/usr/bin/python'
 let g:python3_host_prog = '/usr/bin/python3'
 
+let mapleader = "\\"
+
 "dein Scripts-----------------------------
 if &compatible
   set nocompatible               " Be iMproved
@@ -38,6 +40,7 @@ call dein#add('neomake/neomake')
 call dein#add('kassio/neoterm')
 " Sub-buffers & windows
 call dein#add('romainl/vim-qf')
+call dein#add('reedes/vim-colors-pencil')
 
 " call dein#add('scrooloose/syntastic')
 " call dein#add('Valloric/YouCompleteMe')
@@ -51,16 +54,41 @@ call dein#add('vim-airline/vim-airline-themes')
 call dein#add('altercation/vim-colors-solarized')
 
 " C++
-call dein#add('zchee/deoplete-clang')
-call dein#add('octol/vim-cpp-enhanced-highlight')
-call dein#add('nacitar/a.vim')
+" call dein#add('tweekmonster/deoplete-clang2', {
+"     \ 'on_ft': 'cpp'
+" \ })
+call dein#add('Rip-Rip/clang_complete', {
+    \ 'on_ft': 'cpp',
+    \ 'hook_add': "
+    \ let g:clang_library_path = '/usr/lib/llvm-7/lib/libclang.so.1'\n
+    \ "
+\ })
+
+" Syntax highlighting
+call dein#add('octol/vim-cpp-enhanced-highlight', {'on_ft': 'cpp'})
+
+" Navigation between header and source files
+call dein#add('nacitar/a.vim', {'on_ft': 'cpp'})
+
+" Navigation to function declaration and usage
 call dein#add('brookhong/cscope.vim')
 
+" Automatic reformatting of source files
+call dein#add('rhysd/vim-clang-format', {'on_ft': 'cpp'})
+
+call dein#add('ludovicchabant/vim-gutentags', {
+    \ 'hook_add': "
+    \ let g:gutentags_ctags_tagfile = 'tags'\n
+    \ let g:gutentags_ctags_exclude = ['*.py', '_build']\n
+    \ "
+\ })
+
 " " Python
-call dein#add('zchee/deoplete-jedi')
-" call dein#add('davidhalter/jedi-vim')
-call dein#add('klen/python-mode')
-call dein#add('ludovicchabant/vim-gutentags')
+call dein#add('klen/python-mode', {'on_ft': 'python'})
+call dein#add('zchee/deoplete-jedi', {'on_ft': 'python'})
+
+
+call dein#add('pboettch/vim-cmake-syntax')
 "
 " " PHP & Wordpress bundles
 " call dein#add('dsawardekar/wordpress.vim')
@@ -82,8 +110,16 @@ call dein#add('pangloss/vim-javascript')
 " LaTeX
 call dein#add('lervag/vimtex')
 
+call dein#add('jvirtanen/vim-octave.git')
 " You can specify revision/branch/tag.
 " call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+
+" Go
+call dein#add('fatih/vim-go')
+call dein#add('zchee/deoplete-go')
+" call dein#add('Blackrush/vim-gocode')
+"
+call dein#add('cstrahan/vim-capnp')
 
 " Required:
 call dein#end()
@@ -95,6 +131,7 @@ filetype plugin indent on
 if dein#check_install()
   call dein#install()
 endif
+
 
 "End dein Scripts-------------------------
 
@@ -121,7 +158,8 @@ set expandtab ruler
 " Set colour scheme. The order below matters.
 set background=dark
 colorscheme solarized
-
+" set background=light
+" colorscheme pencil
 
 " --- Navigation and shortcuts
 " Location list navigation.
@@ -154,7 +192,9 @@ let g:qf_window_bottom = 0
 let g:qf_auto_open_quickfix = 0
 let g:qf_auto_open_loclist = 0
 
-
+" --- a.vim
+let g:alternateSearchPath = 'sfr:../source,sfr:../src,sfr:../include,sfr:../inc,wdr:./include,wdr:./src' . ',reg:/include/src//,reg:/src/include//'
+let g:alternateNoDefaultAlternate = 1
 
 " --- Default tex style
 let g:tex_flavor = "context"
@@ -165,16 +205,20 @@ let g:tex_flavor = "context"
 "
 "
 " --- Deoplete
-let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 0
 call deoplete#custom#set('clang', 'rank', 999)
 call deoplete#custom#set('jedi', 'rank', 999)
 " Clang customizations
 let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
-let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-3.8/lib/libclang.so.1"
+let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-7.0/lib/libclang.so.1"
+let g:deoplete#sources#clang#executable = "/usr/bin/clang"
+let g:deoplete#sources#clang#sort_algo = 'priority'
+let g:deoplete#sources#clang#flags = ['-std=c++14']
 
 
 " --- Airline
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline_powerline_fonts = 1
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
@@ -184,11 +228,12 @@ let g:airline_symbols.space = "\ua0"
 
 " --- CtrlP
 " Ignore generated directories
-let g:ctrlp_custom_ignore = 'elm-stuff\|node_modules\|\.git$\|docs\|pycache\|site-packages'
+let g:ctrlp_custom_ignore = 'elm-stuff\|node_modules\|\.git$\|docs\|pycache\|site-packages\|_build'
 " Search primarily by filename
 let g:ctrlp_by_filename = 1
+let g:ctrlp_follow_symlinks=1
 " Ignore byte-files, technically not a CtrlP setting
-set wildignore=*.o,*.d,*.pyc,*.gch,*.plist
+set wildignore=*.o,*.d,*.pyc,*.gch,*.plist,*.fdb_latexmk,*.run.xml,*.blg,*.bbl,*.pdf,*.out,*.fls,*.aux,*.bcf,*.synctex.gz
 " Use custom matcher
 " let g:ctrlp_match_func = {'match' : 'matcher#cmatch'}
 
@@ -200,6 +245,8 @@ let g:neomake_open_list = 2
 " Make on save
 autocmd! BufWritePost *.[^h]* Neomake
 noremap <F5> :Neomake!<CR>
+" Manually reset errors
+noremap <silent> <leader>cls :sign unplace *<CR>:set signcolumn=auto<CR>
 
 
 " --- UltiSnips
@@ -295,6 +342,7 @@ function! SetTextEditorDefaults()
     vnoremap j gj
     vnoremap k gk
 endfunction
+
 "
 " function ConfigureSCSS()
 "     set tabstop=2 softtabstop=2 shiftwidth=2 colorcolumn=80 number

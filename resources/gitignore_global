@@ -45,3 +45,12 @@ tags
 *.pyc
 env/
 *.egg-info/
+
+# Latexmk files #
+# ###############
+*.aux
+*.fdb_latexmk
+*.fls
+*.out
+*-eps-converted-to.pdf
+answer-control.tex

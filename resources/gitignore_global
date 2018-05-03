@@ -36,7 +36,15 @@
 ehthumbs.db
 Thumbs.db
 
+# Editor files #
+################
 tags
+
+# Python support files #
+########################
+*.pyc
+env/
+*.egg-info/
 
 # Latexmk files #
 # ###############

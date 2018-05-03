@@ -70,7 +70,11 @@ call dein#add('Rip-Rip/clang_complete', {
 call dein#add('octol/vim-cpp-enhanced-highlight', {'on_ft': 'cpp'})
 
 " Navigation between header and source files
-call dein#add('nacitar/a.vim', {'on_ft': 'cpp'})
+call dein#add('nacitar/a.vim', {'on_ft': 'cpp', 'hook_add': "
+            \ let g:alternateNoDefaultAlternate = 0\n
+            \"
+            \})
+"            \ let g:alternateSearchPath = 'sfr:../source,sfr:../src,sfr:../include,sfr:../inc,wdr:./include,wdr:./src' . ',reg:/include/src//,reg:/src/include//'\n
 
 " Navigation to function declaration and usage
 
@@ -110,7 +114,7 @@ call dein#add('ludovicchabant/vim-gutentags', {
 
 " " Python
 call dein#add('klen/python-mode', {'on_ft': 'python'})
-call dein#add('zchee/deoplete-jedi', {'on_ft': 'python'})
+" call dein#add('zchee/deoplete-jedi', {'on_ft': 'python'})
 
 
 call dein#add('pboettch/vim-cmake-syntax')
@@ -140,8 +144,8 @@ call dein#add('jvirtanen/vim-octave.git')
 " call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
 
 " Go
-call dein#add('fatih/vim-go')
-call dein#add('zchee/deoplete-go')
+" call dein#add('fatih/vim-go')
+" call dein#add('zchee/deoplete-go')
 " call dein#add('Blackrush/vim-gocode')
 "
 call dein#add('cstrahan/vim-capnp')
@@ -217,10 +221,6 @@ let g:qf_window_bottom = 0
 let g:qf_auto_open_quickfix = 0
 let g:qf_auto_open_loclist = 0
 
-" --- a.vim
-let g:alternateSearchPath = 'sfr:../source,sfr:../src,sfr:../include,sfr:../inc,wdr:./include,wdr:./src' . ',reg:/include/src//,reg:/src/include//'
-let g:alternateNoDefaultAlternate = 1
-
 " --- Default tex style
 let g:tex_flavor = "context"
 
@@ -231,8 +231,8 @@ let g:tex_flavor = "context"
 "
 " --- Deoplete
 let g:deoplete#enable_at_startup = 0
-call deoplete#custom#set('clang', 'rank', 999)
-call deoplete#custom#set('jedi', 'rank', 999)
+call deoplete#custom#source('clang', 'rank', 999)
+call deoplete#custom#source('jedi', 'rank', 999)
 " Clang customizations
 let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
 let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-7.0/lib/libclang.so.1"

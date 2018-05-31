@@ -1,0 +1,9 @@
+Host home
+    HostName 77.109.188.180
+    Port 222
+    User jsmith
+
+Host office-server
+    HostName 192.33.93.172
+    Port 2200
+    User jsmith

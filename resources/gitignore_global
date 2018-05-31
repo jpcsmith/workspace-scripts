@@ -39,6 +39,8 @@ Thumbs.db
 # Editor files #
 ################
 tags
+tags.*
+compile_commands.json
 
 # Python support files #
 ########################

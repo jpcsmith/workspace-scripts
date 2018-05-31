@@ -253,7 +253,7 @@ let g:airline_symbols.space = "\ua0"
 
 " --- CtrlP
 " Ignore generated directories
-let g:ctrlp_custom_ignore = 'elm-stuff\|node_modules\|\.git$\|docs\|pycache\|site-packages\|_build'
+let g:ctrlp_custom_ignore = 'elm-stuff\|node_modules\|\.git$\|docs\|pycache\|site-packages\|_build\|third-party'
 " Search primarily by filename
 let g:ctrlp_by_filename = 1
 let g:ctrlp_follow_symlinks=1
@@ -321,7 +321,6 @@ let g:pymode_syntax_indent_errors = g:pymode_syntax_all
 let g:pymode_syntax_space_errors = g:pymode_syntax_all
 " Don't autofold code
 let g:pymode_folding = 0
-
 
 "
 " Functions

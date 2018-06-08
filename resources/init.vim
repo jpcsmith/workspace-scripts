@@ -42,6 +42,7 @@ call dein#add('kassio/neoterm')
 call dein#add('romainl/vim-qf')
 call dein#add('reedes/vim-colors-pencil')
 
+call dein#add('ekalinin/Dockerfile.vim')
 " call dein#add('scrooloose/syntastic')
 " call dein#add('Valloric/YouCompleteMe')
 " call dein#add('Shougo/neosnippet.vim')
@@ -253,7 +254,7 @@ let g:airline_symbols.space = "\ua0"
 
 " --- CtrlP
 " Ignore generated directories
-let g:ctrlp_custom_ignore = 'elm-stuff\|node_modules\|\.git$\|docs\|pycache\|site-packages\|_build\|third-party'
+let g:ctrlp_custom_ignore = 'elm-stuff\|node_modules\|\.git$\|docs\|pycache\|site-packages\|_build\|third-party\|build-tools'
 " Search primarily by filename
 let g:ctrlp_by_filename = 1
 let g:ctrlp_follow_symlinks=1
@@ -264,11 +265,19 @@ set wildignore=*.o,*.d,*.pyc,*.gch,*.plist,*.fdb_latexmk,*.run.xml,*.blg,*.bbl,*
 
 
 " --- Neomake
+function! RunNeomakeForHeader()
+    " Description: If the header file exists
+    if filereadable(expand('%:p'))
+        execute("Neomake")
+    endif
+endfunction
+
 let g:neomake_list_height = 5
 " Dont jump to the location-list when showing errors.
 let g:neomake_open_list = 2
 " Make on save
 autocmd! BufWritePost *.[^h]* Neomake
+autocmd! BufWritePost *.h call RunNeomakeForHeader()
 noremap <F5> :Neomake!<CR>
 " Manually reset errors
 noremap <silent> <leader>cls :sign unplace *<CR>:set signcolumn=auto<CR>

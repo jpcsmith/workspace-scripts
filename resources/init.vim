@@ -26,7 +26,6 @@ call dein#add('Shougo/dein.vim')
 call dein#add('tpope/vim-fugitive')
 " File management
 call dein#add('ctrlpvim/ctrlp.vim')
-" call dein#add('JazzCore/ctrlp-cmatcher')
 " File marks
 call dein#add('kshenoy/vim-signature')
 " Autocomplete
@@ -43,10 +42,6 @@ call dein#add('romainl/vim-qf')
 call dein#add('reedes/vim-colors-pencil')
 
 call dein#add('ekalinin/Dockerfile.vim')
-" call dein#add('scrooloose/syntastic')
-" call dein#add('Valloric/YouCompleteMe')
-" call dein#add('Shougo/neosnippet.vim')
-" call dein#add('Shougo/neosnippet-snippets')
 call dein#add('nightsense/seabird')
 
 " Status bar
@@ -54,10 +49,6 @@ call dein#add('vim-airline/vim-airline')
 call dein#add('vim-airline/vim-airline-themes')
 call dein#add('altercation/vim-colors-solarized')
 
-" C++
-" call dein#add('tweekmonster/deoplete-clang2', {
-"     \ 'on_ft': 'cpp'
-" \ })
 
 call dein#add('Rip-Rip/clang_complete', {
     \ 'on_ft': 'cpp',
@@ -170,7 +161,7 @@ endif
 " General configuration
 "
 "
-" --- General functionality changes
+" --- General Functionality changes
 " Enable local vimrc
 set exrc secure
 " Set backspace behaviour
@@ -267,7 +258,7 @@ set wildignore=*.o,*.d,*.pyc,*.gch,*.plist,*.fdb_latexmk,*.run.xml,*.blg,*.bbl,*
 " --- Neomake
 function! RunNeomakeForHeader()
     " Description: If the header file exists
-    if filereadable(expand('%:p'))
+    if filereadable(expand('%:p.cpp'))
         execute("Neomake")
     endif
 endfunction
@@ -276,8 +267,8 @@ let g:neomake_list_height = 5
 " Dont jump to the location-list when showing errors.
 let g:neomake_open_list = 2
 " Make on save
-autocmd! BufWritePost *.[^h]* Neomake
-autocmd! BufWritePost *.h call RunNeomakeForHeader()
+autocmd! BufWritePost * Neomake
+" autocmd! BufWritePost *.h call RunNeomakeForHeader()
 noremap <F5> :Neomake!<CR>
 " Manually reset errors
 noremap <silent> <leader>cls :sign unplace *<CR>:set signcolumn=auto<CR>

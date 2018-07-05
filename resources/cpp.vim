@@ -6,11 +6,11 @@ call EnableTrimWhitespaceOnSave()
 " --- Style config
 set cinoptions=(0,g0,N-s,Ws
 
-let g:neomake_cpp_clangcheck_args = ['-extra-arg=-fno-diagnostics-color', '-extra-arg=-Wno-unknown-warning-option', '%:p:r.cpp']
-let g:neomake_cpp_clangcheck_append_file = 0
+let g:neomake_cpp_clangcheck_exe = 'cpplintwrapper'
+let g:neomake_cpp_clangcheck_args = ['clang-check', '-extra-arg=-fno-diagnostics-color', '-extra-arg=-Wno-unknown-warning-option']
 let g:neomake_cpp_enabled_makers = ['clangtidy', 'clangcheck']
-let g:neomake_cpp_clangtidy_args = ['%:p:r.cpp']
-let g:neomake_cpp_clangtidy_append_file = 0
+let g:neomake_cpp_clangtidy_exe = 'cpplintwrapper'
+let g:neomake_cpp_clangtidy_args = ['clang-tidy']
 
 
 let g:clang_format#auto_format = 1

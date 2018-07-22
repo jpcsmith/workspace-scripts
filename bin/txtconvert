@@ -1,0 +1,47 @@
+#!/usr/bin/env python3
+"""Script for converting among different machine readable representations."""
+
+import argparse
+import json
+import sys
+from functools import partial
+from collections import OrderedDict
+
+import yaml
+
+
+def _setup_yaml():
+    def as_dict(self, data):
+        return self.represent_mapping('tag:yaml.org,2002:map', data.items())
+    # Get yaml to treat ordered dict as dict
+    yaml.add_representer(OrderedDict, as_dict)
+
+
+def main():
+    """Parses the command line arguments."""
+    _setup_yaml()
+    source_funcs = {
+        'json': partial(json.load, object_pairs_hook=OrderedDict),
+        'yaml': yaml.load
+    }
+    target_funcs = {
+        'json': json.dump,
+        'yaml': yaml.dump
+    }
+
+    parser = argparse.ArgumentParser(
+        description="Converts among different text representations.")
+    parser.add_argument('from_type', help="Source representation.",
+                        choices=source_funcs)
+    parser.add_argument('to_type', help="Source representation.",
+                        choices=target_funcs)
+    parser.add_argument('filename', nargs='?', type=argparse.FileType('r'),
+                        default=sys.stdin)
+    args = parser.parse_args()
+
+    target_funcs[args.to_type](source_funcs[args.from_type](args.filename),
+                               sys.stdout)
+
+
+if __name__ == '__main__':
+    main()

@@ -39,7 +39,8 @@ call dein#add('neomake/neomake')
 call dein#add('kassio/neoterm')
 " Sub-buffers & windows
 call dein#add('romainl/vim-qf')
-call dein#add('reedes/vim-colors-pencil')
+" call dein#add('reedes/vim-colors-pencil')
+call dein#add('junegunn/seoul256.vim')
 
 call dein#add('ekalinin/Dockerfile.vim')
 call dein#add('nightsense/seabird')
@@ -177,9 +178,11 @@ set completeopt="menuone,longest,preview"
 set tabstop=4 shiftwidth=4 softtabstop=4
 set expandtab ruler
 " Set colour scheme. The order below matters.
-set background=dark
+set background=light
+" set background=dark
 colorscheme solarized
-" set background=light
+" let g:seoul256_background = 256
+" colorscheme seoul256
 " colorscheme pencil
 
 " --- Navigation and shortcuts
@@ -241,6 +244,7 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 let g:airline_symbols.space = "\ua0"
+let g:airline_theme = 'solarized'
 
 
 " --- CtrlP

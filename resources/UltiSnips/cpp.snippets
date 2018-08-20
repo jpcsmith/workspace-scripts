@@ -70,14 +70,36 @@ $1(const $1&) = delete;
 auto operator=(const $1&) -> $1& = delete;
 endsnippet
 
+snippet visitor "C++ visitor template."
+struct Visitor {
+	virtual ~Visitor() = default;
+
+	$0
+};
+endsnippet
+
+snippet virtual "C++ pure virutal method"
+virtual auto $1(${2:}) -> ${3:void} = 0;$0
+endsnippet
+
+snippet interface "C++ interface template."
+class $1 {
+public:
+	virtual ~$1() = default;
+
+	$0
+};
+endsnippet
+
 snippet "([\w+::]*\w+).ns" "Expands nested namespaces." r
-`!p
-names = match.group(1).split('::');
+`!p names = match.group(1).split('::');
 snip.rv = '\n'.join('namespace {} {{'.format(n) for n in names)
 `
 $0
-`!p
-names = match.group(1).split('::');
+`!p names = match.group(1).split('::');
+>>>>>>> Stashed changes
 snip.rv = '\n'.join('}' for _ in names)
 `
 endsnippet
+
+

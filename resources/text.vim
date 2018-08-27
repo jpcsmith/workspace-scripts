@@ -5,5 +5,5 @@ call EnableTrimWhitespaceOnSave()
 setlocal spell spelllang=en_us
 
 " Set colour scheme. The order below matters.
-set background=light
-colorscheme pencil
+" set background=light
+" colorscheme pencil

@@ -5,9 +5,18 @@ Host home
 
 Host office-server
     HostName 192.33.93.172
+    ForwardAgent yes
     Port 2200
     User jsmith
 
 Host laptop-home
     HostName 192.168.1.32
     User jsmith
+
+Host netropy-1
+    HostName labsig1.ethz.ch
+    User jpsmith
+
+Host netropy-2
+    HostName labsig2.ethz.ch
+    User jpsmith

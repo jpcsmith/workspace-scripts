@@ -14,9 +14,24 @@ Host laptop-home
     User jsmith
 
 Host netropy-1
-    HostName labsig1.ethz.ch
-    User jpsmith
+    HostName netsec-bs5swd.inf.ethz.ch
+    User jsmith
+    ForwardAgent yes
 
 Host netropy-2
-    HostName labsig2.ethz.ch
-    User jpsmith
+    HostName netsec-mj3u53.inf.ethz.ch
+    User jsmith
+
+Host apposite.inf.ethz.ch
+    ControlMaster auto
+    ControlPath ~/.ssh/sockets/%r@%h:%p
+    ControlPersist 10m
+
+Host scion-r0
+    HostName scion-r0.inf.ethz.ch
+    User jsmith
+
+Host scion-r1
+    HostName scion-r1.inf.ethz.ch
+    ForwardAgent yes
+    User scion-r1

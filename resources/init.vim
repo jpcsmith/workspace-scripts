@@ -41,9 +41,11 @@ call dein#add('kassio/neoterm')
 call dein#add('romainl/vim-qf')
 " call dein#add('reedes/vim-colors-pencil')
 call dein#add('junegunn/seoul256.vim')
+call dein#add('cespare/vim-toml')
 
 call dein#add('ekalinin/Dockerfile.vim')
 call dein#add('nightsense/seabird')
+call dein#add('python-mode/python-mode')
 
 " Status bar
 call dein#add('vim-airline/vim-airline')
@@ -64,10 +66,10 @@ call dein#add('octol/vim-cpp-enhanced-highlight', {'on_ft': 'cpp'})
 
 " Navigation between header and source files
 call dein#add('nacitar/a.vim', {'on_ft': 'cpp', 'hook_add': "
-            \ let g:alternateNoDefaultAlternate = 0\n
+            \ let g:alternateNoDefaultAlternate = 1\n
+            \ let g:alternateSearchPath = 'sfr:../source,sfr:../src,sfr:../include,sfr:../inc,wdr:./include,wdr:./src' . ',reg:/include/src//,reg:/src/include//'\n
             \"
             \})
-"            \ let g:alternateSearchPath = 'sfr:../source,sfr:../src,sfr:../include,sfr:../inc,wdr:./include,wdr:./src' . ',reg:/include/src//,reg:/src/include//'\n
 
 " Navigation to function declaration and usage
 
@@ -98,12 +100,12 @@ call dein#add('brookhong/cscope.vim', {
 " Automatic reformatting of source files
 call dein#add('rhysd/vim-clang-format', {'on_ft': 'cpp'})
 
-call dein#add('ludovicchabant/vim-gutentags', {
-    \ 'hook_add': "
-    \ let g:gutentags_ctags_tagfile = 'tags'\n
-    \ let g:gutentags_ctags_exclude = ['*.py', '_build']\n
-    \ "
-\ })
+" call dein#add('ludovicchabant/vim-gutentags', {
+"     \ 'hook_add': "
+"     \ let g:gutentags_ctags_tagfile = 'tags'\n
+"     \ let g:gutentags_ctags_exclude = ['*.py', '_build']\n
+"     \ "
+" \ })
 
 " " Python
 call dein#add('klen/python-mode', {'on_ft': 'python'})
@@ -156,6 +158,13 @@ endif
 
 
 "End dein Scripts-------------------------
+
+
+if has("autocmd")
+    augroup templates
+        autocmd BufNewFile setup.py 0r ~/.config/nvim/templates/skeleton-setup.py
+    augroup END
+endif
 
 
 "
@@ -249,7 +258,7 @@ let g:airline_theme = 'solarized'
 
 " --- CtrlP
 " Ignore generated directories
-let g:ctrlp_custom_ignore = 'elm-stuff\|node_modules\|\.git$\|docs\|pycache\|site-packages\|_build\|third-party\|build-tools'
+let g:ctrlp_custom_ignore = 'elm-stuff\|node_modules\|\.git$\|docs\|pycache\|site-packages\|_build\|build\|build-tools\|third-party/depot-tools\|third-party/quic-sample-server\|env'
 " Search primarily by filename
 let g:ctrlp_by_filename = 1
 let g:ctrlp_follow_symlinks=1
@@ -282,49 +291,31 @@ noremap <silent> <leader>cls :sign unplace *<CR>:set signcolumn=auto<CR>
 let g:UltiSnipsSnippetsDir = "~/.config/nvim/UltiSnips"
 let g:UltiSnipsSnippetDirectories = ["UltiSnips"]
 " Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsExpandTrigger="<tab>"
 " let g:UltiSnipsJumpForwardTrigger="<c-b>"
 " let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " If you want :UltiSnipsEdit to split your window.
 let g:UltiSnipsEditSplit="vertical"
-" let g:UltiSnipsExpandTrigger = "<leader>e"
+let g:UltiSnipsExpandTrigger = "<leader>e"
 " let g:UltiSnipsJumpForwardTrigger = "<leader>e"
 " let g:UltiSnipsEditSplit = "vertical"
-
-
-
 
 " --- vim-qf
 " Hotkeys for toggling the location and quickfix windows
 nmap <leader>l <Plug>QfLtoggle
 nmap <leader>q <Plug>QfCtoggle
 
+" --- Enable LaTeX
+let g:tex_flavor = 'latex'
 
-" --- pymode
-let g:pymode_rope = 0
-let g:pymode_rope_completion = 0
-let g:pymode_rope_goto_definition_bind = '<leader>d'
-let g:pymode_rope_goto_definition_cmd = 'edit'
-let g:pymode_python = 'python3'
-" Documentation
-let g:pymode_doc = 1
-let g:pymode_doc_key = 'K'
-"Linting
-let g:pymode_lint = 0
-" Auto check on save
-let g:pymode_lint_write = 1
-" Support virtualenv
-let g:pymode_virtualenv = 0
-" Enable breakpoints plugin
-let g:pymode_breakpoint = 1
-let g:pymode_breakpoint_bind = '<leader>b'
-" syntax highlighting
-let g:pymode_syntax = 1
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
-" Don't autofold code
-let g:pymode_folding = 0
+" --- Enable syntax highligting for snakemake
+au BufNewFile,BufRead Snakefile set syntax=snakemake
+au BufNewFile,BufRead *.smk set syntax=snakemake
+" autocommand to detect .spthy and .sapic files
+augroup filetypedetect
+au BufNewFile,BufRead *.spthy	setf spthy
+au BufNewFile,BufRead *.sapic	setf sapic
+augroup END
 
 "
 " Functions

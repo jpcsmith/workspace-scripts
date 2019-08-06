@@ -2,6 +2,18 @@ snippet linc "Creates a local include."
 #include "$0.h"
 endsnippet
 
+snippet lpinc "Creates a local include."
+#include "$0.hpp"
+endsnippet
+
+snippet cinc "Creates a standard include."
+#include <$0>
+endsnippet
+
+snippet binc "Creates a Boost include ending in hpp."
+#include <$0.hpp>
+endsnippet
+
 snippet gtmain "GoogleTest default main function."
 int main(int argc, char **argv)
 {

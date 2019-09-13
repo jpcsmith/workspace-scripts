@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+readonly NVIM_PATH="${HOME}/.config/nvim"
+readonly PLUGIN_PATH="${NVIM_PATH}/after/ftplugin"
+readonly FT_PLUGINS=( "resources/text.vim" "resources/python.vim" "resources/markdown.vim" )
+
+
+# ---
+# Install filetype plugins
+#
+install_ftplugins() {
+    printf "Creating symlinks in ${PLUGIN_PATH} to the to filetype plugins.\n"
+    for plugin in "${FT_PLUGINS[@]}"; do
+        printf " - Creating a symlink to the to ${plugin}... "
+        ln --force --symbolic --target-directory="${PLUGIN_PATH}" "${PWD}/${plugin}" \
+            || exit 1 && echo "OK"
+    done
+}
+
+
+main() {
+    install_ftplugins
+}
+main

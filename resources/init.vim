@@ -4,168 +4,109 @@ let g:python3_host_prog = '/usr/bin/python3'
 
 let mapleader = "\\"
 
-"dein Scripts-----------------------------
-if &compatible
-  set nocompatible               " Be iMproved
-endif
 
-" Required:
-set runtimepath^=~/.config/nvim/dein/repos/github.com/Shougo/dein.vim
-
-" Required:
-call dein#begin(expand('~/.config/nvim/dein/'))
-
-" Let dein manage dein
-" Required:
-call dein#add('Shougo/dein.vim')
-
-" Add or remove your plugins here:
+call plug#begin('~/.local/share/nvim/plugged')
 
 " --- General plugins
 " Git control
-call dein#add('tpope/vim-fugitive')
+Plug 'tpope/vim-fugitive'
 " File management
-call dein#add('ctrlpvim/ctrlp.vim')
+Plug 'ctrlpvim/ctrlp.vim'
 " File marks
-call dein#add('kshenoy/vim-signature')
-" Autocomplete
-call dein#add('Shougo/deoplete.nvim')
-" Snippets
-call dein#add('SirVer/ultisnips')
-call dein#add('honza/vim-snippets')
+Plug 'kshenoy/vim-signature'
 " Linting & making
-call dein#add('neomake/neomake')
-" Advanced terminal
-call dein#add('kassio/neoterm')
-" Sub-buffers & windows
-call dein#add('romainl/vim-qf')
-" call dein#add('reedes/vim-colors-pencil')
-call dein#add('junegunn/seoul256.vim')
-call dein#add('cespare/vim-toml')
-
-call dein#add('ekalinin/Dockerfile.vim')
-call dein#add('nightsense/seabird')
-call dein#add('python-mode/python-mode')
-
+Plug 'neomake/neomake'
+" Colourscheme
+Plug 'morhetz/gruvbox'
 " Status bar
-call dein#add('vim-airline/vim-airline')
-call dein#add('vim-airline/vim-airline-themes')
-call dein#add('altercation/vim-colors-solarized')
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" --- Filetype plugins
+" Docker
+Plug 'ekalinin/Dockerfile.vim'
+" TOML
+Plug 'cespare/vim-toml'
+" Python
+Plug 'python-mode/python-mode'
+" LaTeX
+Plug 'lervag/vimtex'
+
+call plug#end()
 
 
-call dein#add('Rip-Rip/clang_complete', {
-    \ 'on_ft': 'cpp',
-    \ 'hook_add': "
-    \ let g:clang_library_path = '/usr/lib/llvm-7/lib/libclang.so.1'\n
-    \ let g:clang_jumpto_declaration_key = ''\n
-    \ "
-\ })
-
-" Syntax highlighting
-call dein#add('octol/vim-cpp-enhanced-highlight', {'on_ft': 'cpp'})
-
-" Navigation between header and source files
-call dein#add('nacitar/a.vim', {'on_ft': 'cpp', 'hook_add': "
-            \ let g:alternateNoDefaultAlternate = 1\n
-            \ let g:alternateSearchPath = 'sfr:../source,sfr:../src,sfr:../include,sfr:../inc,wdr:./include,wdr:./src' . ',reg:/include/src//,reg:/src/include//'\n
-            \"
-            \})
-
-" Navigation to function declaration and usage
-
-" s: Find this C symbol
-" g: Find this definition
-" d: Find functions called by this function
-" c: Find functions calling this function
-" t: Find this text string
-" e: Find this egrep pattern
-" f: Find this file
-" i: Find files #including this file
-call dein#add('brookhong/cscope.vim', {
- \ 'hook_add': "
- \ nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>\n
- \ nnoremap <leader>l :call ToggleLocationList()<CR>\n
- \ nnoremap  <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>\n
- \ nnoremap  <leader>fg :call CscopeFind('g', expand('<cword>'))<CR>\n
- \ nnoremap  <leader>fd :call CscopeFind('d', expand('<cword>'))<CR>\n
- \ nnoremap  <leader>fc :call CscopeFind('c', expand('<cword>'))<CR>\n
- \ nnoremap  <leader>ft :call CscopeFind('t', expand('<cword>'))<CR>\n
- \ nnoremap  <leader>fe :call CscopeFind('e', expand('<cword>'))<CR>\n
- \ nnoremap  <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>\n
- \ nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>\n
- \ let g:cscope_silent = 1\n
- \"
- \})
-
-" Automatic reformatting of source files
-call dein#add('rhysd/vim-clang-format', {'on_ft': 'cpp'})
-
-" call dein#add('ludovicchabant/vim-gutentags', {
+" " Autocomplete
+" call dein#add('Shougo/deoplete.nvim')
+" " Snippets
+" call dein#add('SirVer/ultisnips')
+" call dein#add('honza/vim-snippets')
+" " Advanced terminal
+" call dein#add('kassio/neoterm')
+" " Sub-buffers & windows
+" call dein#add('romainl/vim-qf')
+" 
+" 
+" call dein#add('Rip-Rip/clang_complete', {
+"     \ 'on_ft': 'cpp',
 "     \ 'hook_add': "
-"     \ let g:gutentags_ctags_tagfile = 'tags'\n
-"     \ let g:gutentags_ctags_exclude = ['*.py', '_build']\n
+"     \ let g:clang_library_path = '/usr/lib/llvm-7/lib/libclang.so.1'\n
+"     \ let g:clang_jumpto_declaration_key = ''\n
 "     \ "
 " \ })
-
-" " Python
-call dein#add('klen/python-mode', {'on_ft': 'python'})
-" call dein#add('zchee/deoplete-jedi', {'on_ft': 'python'})
-
-
-call dein#add('pboettch/vim-cmake-syntax')
-"
-" " PHP & Wordpress bundles
-" call dein#add('dsawardekar/wordpress.vim')
-" call dein#add('StanAngeloff/php.vim')
-" call dein#add('shawncplus/phpcomplete.vim')
-"
-" " Web
-" call dein#add('cakebaker/scss-syntax.vim')
-"
-" " Elm
-" call dein#add('ElmCast/elm-vim')
-"
-" Plantuml
-call dein#add('aklt/plantuml-syntax')
-"
-" " Javascript
-call dein#add('pangloss/vim-javascript')
-
-" LaTeX
-call dein#add('lervag/vimtex')
-
-call dein#add('jvirtanen/vim-octave.git')
-" You can specify revision/branch/tag.
-" call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
-
-" Go
-" call dein#add('fatih/vim-go')
-" call dein#add('zchee/deoplete-go')
-" call dein#add('Blackrush/vim-gocode')
-"
-call dein#add('cstrahan/vim-capnp')
-
-" Required:
-call dein#end()
-
-" Required:
-filetype plugin indent on
-
-" If you want to install not installed plugins on startup.
-if dein#check_install()
-  call dein#install()
-endif
-
-
-"End dein Scripts-------------------------
-
+" 
+" " Syntax highlighting
+" call dein#add('octol/vim-cpp-enhanced-highlight', {'on_ft': 'cpp'})
+" 
+" " Navigation between header and source files
+" call dein#add('nacitar/a.vim', {'on_ft': 'cpp', 'hook_add': "
+"             \ let g:alternateNoDefaultAlternate = 1\n
+"             \ let g:alternateSearchPath = 'sfr:../source,sfr:../src,sfr:../include,sfr:../inc,wdr:./include,wdr:./src' . ',reg:/include/src//,reg:/src/include//'\n
+"             \"
+"             \})
+" 
+" " Navigation to function declaration and usage
+" 
+" " s: Find this C symbol
+" " g: Find this definition
+" " d: Find functions called by this function
+" " c: Find functions calling this function
+" " t: Find this text string
+" " e: Find this egrep pattern
+" " f: Find this file
+" " i: Find files #including this file
+" call dein#add('brookhong/cscope.vim', {
+"  \ 'hook_add': "
+"  \ nnoremap <leader>fa :call CscopeFindInteractive(expand('<cword>'))<CR>\n
+"  \ nnoremap <leader>l :call ToggleLocationList()<CR>\n
+"  \ nnoremap  <leader>fs :call CscopeFind('s', expand('<cword>'))<CR>\n
+"  \ nnoremap  <leader>fg :call CscopeFind('g', expand('<cword>'))<CR>\n
+"  \ nnoremap  <leader>fd :call CscopeFind('d', expand('<cword>'))<CR>\n
+"  \ nnoremap  <leader>fc :call CscopeFind('c', expand('<cword>'))<CR>\n
+"  \ nnoremap  <leader>ft :call CscopeFind('t', expand('<cword>'))<CR>\n
+"  \ nnoremap  <leader>fe :call CscopeFind('e', expand('<cword>'))<CR>\n
+"  \ nnoremap  <leader>ff :call CscopeFind('f', expand('<cword>'))<CR>\n
+"  \ nnoremap  <leader>fi :call CscopeFind('i', expand('<cword>'))<CR>\n
+"  \ let g:cscope_silent = 1\n
+"  \"
+"  \})
+" 
+" " Automatic reformatting of source files
+" call dein#add('rhysd/vim-clang-format', {'on_ft': 'cpp'})
+" 
+" " call dein#add('ludovicchabant/vim-gutentags', {
+" "     \ 'hook_add': "
+" "     \ let g:gutentags_ctags_tagfile = 'tags'\n
+" "     \ let g:gutentags_ctags_exclude = ['*.py', '_build']\n
+" "     \ "
+" " \ })
+" 
+" call dein#add('pboettch/vim-cmake-syntax')
 
 if has("autocmd")
     augroup templates
         autocmd BufNewFile setup.py 0r ~/.config/nvim/templates/skeleton-setup.py
     augroup END
 endif
-
 
 "
 " General configuration
@@ -186,13 +127,12 @@ set completeopt="menuone,longest,preview"
 " Tab size and spaces
 set tabstop=4 shiftwidth=4 softtabstop=4
 set expandtab ruler
+set termguicolors
 " Set colour scheme. The order below matters.
 set background=light
 " set background=dark
-colorscheme solarized
-" let g:seoul256_background = 256
-" colorscheme seoul256
-" colorscheme pencil
+let g:gruvbox_italic=1
+colorscheme gruvbox
 
 " --- Navigation and shortcuts
 " Location list navigation.
@@ -217,13 +157,13 @@ nnoremap <A-l> <C-w>l
 
 
 " Causes issues with resizing (https://github.com/vim/vim/issues/931).
-let g:qf_loclist_window_bottom = 0
-let g:qf_window_bottom = 0
+" let g:qf_loclist_window_bottom = 0
+" let g:qf_window_bottom = 0
 
 " Annoying with Neomake, but only on Vim?!
 " Even with let `g:neomake_open_list = 2` !
-let g:qf_auto_open_quickfix = 0
-let g:qf_auto_open_loclist = 0
+" let g:qf_auto_open_quickfix = 0
+" let g:qf_auto_open_loclist = 0
 
 " --- Default tex style
 let g:tex_flavor = "context"
@@ -233,16 +173,16 @@ let g:tex_flavor = "context"
 " Plugin settings
 "
 "
-" --- Deoplete
-let g:deoplete#enable_at_startup = 0
-call deoplete#custom#source('clang', 'rank', 999)
-call deoplete#custom#source('jedi', 'rank', 999)
-" Clang customizations
-let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
-let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-7.0/lib/libclang.so.1"
-let g:deoplete#sources#clang#executable = "/usr/bin/clang"
-let g:deoplete#sources#clang#sort_algo = 'priority'
-let g:deoplete#sources#clang#flags = ['-std=c++14']
+" " --- Deoplete
+" let g:deoplete#enable_at_startup = 0
+" call deoplete#custom#source('clang', 'rank', 999)
+" call deoplete#custom#source('jedi', 'rank', 999)
+" " Clang customizations
+" let g:deoplete#sources#clang#clang_header = "/usr/lib/clang"
+" let g:deoplete#sources#clang#libclang_path = "/usr/lib/llvm-7.0/lib/libclang.so.1"
+" let g:deoplete#sources#clang#executable = "/usr/bin/clang"
+" let g:deoplete#sources#clang#sort_algo = 'priority'
+" let g:deoplete#sources#clang#flags = ['-std=c++14']
 
 
 " --- Airline
@@ -309,7 +249,7 @@ nmap <leader>q <Plug>QfCtoggle
 let g:tex_flavor = 'latex'
 
 " --- Enable syntax highligting for snakemake
-au BufNewFile,BufRead Snakefile set syntax=snakemake
+au BufNewFile,BufRead Snakefile set syntax=snakemake | set filetype=snakemake
 au BufNewFile,BufRead *.smk set syntax=snakemake
 " autocommand to detect .spthy and .sapic files
 augroup filetypedetect

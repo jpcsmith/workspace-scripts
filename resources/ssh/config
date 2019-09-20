@@ -27,11 +27,6 @@ Host apposite.inf.ethz.ch
     ControlPath ~/.ssh/sockets/%r@%h:%p
     ControlPersist 10m
 
-Host scion-r0
-    HostName scion-r0.inf.ethz.ch
+Host opennet
+    HostName netsec-6z2isj.inf.ethz.ch
     User jsmith
-
-Host scion-r1
-    HostName scion-r1.inf.ethz.ch
-    ForwardAgent yes
-    User scion-r1

@@ -33,7 +33,7 @@ def main():
         description="Converts among different text representations.")
     parser.add_argument('from_type', help="Source representation.",
                         choices=source_funcs)
-    parser.add_argument('to_type', help="Source representation.",
+    parser.add_argument('to_type', help="Target representation.",
                         choices=target_funcs)
     parser.add_argument('filename', nargs='?', type=argparse.FileType('r'),
                         default=sys.stdin)

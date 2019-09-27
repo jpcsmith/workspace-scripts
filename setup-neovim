@@ -7,8 +7,16 @@ readonly CONFIG_PATH="${HOME}/.config"
 readonly LINTER_CONFIGS=( "resources/python/flake8" "resources/python/pylintrc" )
 
 
+install_init() {
+    printf "Creating symlink to the to init config... "
+    ln --force --symbolic --target-directory="${NVIM_PATH}" "${PWD}/resources/init.vim" \
+        || exit 1 && echo "OK"
+}
+
+
 install_ftplugins() {
     printf "Creating symlinks in ${PLUGIN_PATH} to the to filetype plugins.\n"
+    mkdir -p "${PLUGIN_PATH}"
     for plugin in "${FT_PLUGINS[@]}"; do
         printf " - Creating a symlink to ${plugin}... "
         ln --force --symbolic --target-directory="${PLUGIN_PATH}" "${PWD}/${plugin}" \
@@ -27,6 +35,7 @@ install_linter_configs() {
 
 
 main() {
+    install_init
     install_ftplugins
     install_linter_configs
 }

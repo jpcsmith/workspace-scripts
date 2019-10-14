@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+sudo mount -t cifs -o user=jsmith,domain=d,uid=jsmith //perrig.fs.inf.ethz.ch/perrig-project-secure /mnt/project-secure
+sudo mount -t cifs -o user=jsmith,domain=d,uid=jsmith //perrig.scratch.inf.ethz.ch/scratch-perrig-secure /mnt/scratch

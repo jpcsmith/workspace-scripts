@@ -9,7 +9,11 @@ call EnableTrimWhitespaceOnSave()
 
 let g:neomake_tex_chktex_args = ['--nowarn', '1']
 let g:neomake_tex_pdflatex_errorformat =  '%-G%.%#'
-let g:neomake_tex_enabled_makers = ['chktex', 'rubberinfo', 'lacheck', 'proselint']
+let g:neomake_tex_latexrun_args = ['--color', 'never', '--bibtex-cmd', 'biber']
+" let g:neomake_tex_latexrun_errorformat = '%f:%l:%trror: %m,' . '%f: %tarning: %m,' . '%f: %trror: %m'
+let g:neomake_tex_latexrun_errorformat = '%f:\ %t%*[^0-9]:%m,' . '%tarning\ None \None\ %m'
+
+let g:neomake_tex_enabled_makers = ['chktex', 'lacheck', 'proselint', 'latexrun']
 
 let g:vimtex_compiler_progname = 'nvr'
 let g:vimtex_compiler_method = 'latexmk'

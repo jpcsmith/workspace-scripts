@@ -1,4 +1,20 @@
 #!/usr/bin/env bash
 
-sudo mount -t cifs -o user=jsmith,domain=d,uid=jsmith //perrig.fs.inf.ethz.ch/perrig-project-secure /mnt/project-secure
-sudo mount -t cifs -o user=jsmith,domain=d,uid=jsmith //perrig.scratch.inf.ethz.ch/scratch-perrig-secure /mnt/scratch
+# Used to store the password output
+PASSWD=
+read_password() {
+    ## Read a password from the command line into PASSWD
+    local -r prompt=$1
+
+    stty -echo
+    printf "${prompt}"
+    read PASSWD
+    stty echo
+    printf "\n"
+}
+
+
+read_password "ETH Password: "
+
+PASSWD="${PASSWD}" sudo -E mount -t cifs -o user=jsmith,domain=d,uid=jsmith //perrig.fs.inf.ethz.ch/perrig-project-secure /mnt/project-secure
+PASSWD="${PASSWD}" sudo -E mount -t cifs -o user=jsmith,domain=d,uid=jsmith //perrig.scratch.inf.ethz.ch/scratch-perrig-secure /mnt/scratch

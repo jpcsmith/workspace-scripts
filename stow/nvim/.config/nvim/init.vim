@@ -1,9 +1,15 @@
+" Disable rope early
+" Disabling rope in python.vim does not seem to work, though the variables are
+" set. It seems they are set in python.vim after rope is initialised
+let g:pymode_rope = 0
+let g:pymode_rope_completion = 0
+let g:pymode_rope_complete_on_dot = 0
+
 " --- Setup python paths
 let g:python_host_prog = '/usr/bin/python'
 let g:python3_host_prog = '/usr/bin/python3'
 
 let mapleader = "\\"
-
 
 call plug#begin('~/.local/share/nvim/plugged')
 

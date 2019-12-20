@@ -1,9 +1,11 @@
 " --- pymode
 let g:pymode_rope = 0
 let g:pymode_rope_completion = 0
+let g:pymode_rope_complete_on_dot = 0
 let g:pymode_rope_goto_definition_bind = '<leader>d'
 let g:pymode_rope_goto_definition_cmd = 'edit'
 let g:pymode_python = 'python3'
+
 " Documentation
 let g:pymode_doc = 1
 let g:pymode_doc_key = 'K'

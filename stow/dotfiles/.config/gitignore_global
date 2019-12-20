@@ -41,12 +41,15 @@ Thumbs.db
 tags
 tags.*
 compile_commands.json
+.ropeproject
 
 # Python support files #
 ########################
 *.pyc
 env/
 *.egg-info/
+.ipynb_checkpoints
+.mypy_cache
 
 # Latexmk files #
 # ###############

@@ -1,0 +1,32 @@
+#####################################################################
+#
+# Here,  you  can  specify the length of various dashes.  We sort the
+# dash according to which type of characters that are on the left and
+# right of it.  We are only conclusive if they are the same.
+#
+# We associate as follows:
+#
+#     Name        Type of character on each side
+#     HyphDash    Alphabetic (foo-bar)
+#     NumDash     Numeric (2--3)
+#     WordDash    Space (like this --- see?)
+#
+# Below you specify how many dashes which are legal in each case.  We
+# define 0 as  a magic constant which always generates an error.  You
+# may specify more than one legal dash-length.
+#
+# Let's look at an example.  You use the following dash-syntax:
+#
+#     foo-bar
+#     2--3
+#     like this---see?
+#
+#
+# HYPHDASH { 1 3 }        # Either a hyphen, or inter-word
+# NUMDASH { 2 }           # Between words
+# WORDDASH { 0 }          # We never use this
+#
+
+HyphDash { 1 }
+NumDash { 2 }
+WordDash { 1 2 }

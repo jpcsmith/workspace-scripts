@@ -1,6 +1,7 @@
 " Disable rope early
 " Disabling rope in python.vim does not seem to work, though the variables are
 " set. It seems they are set in python.vim after rope is initialised
+let g:pymode_lint = 0
 let g:pymode_rope = 0
 let g:pymode_rope_completion = 0
 let g:pymode_rope_complete_on_dot = 0
@@ -38,6 +39,11 @@ Plug 'python-mode/python-mode'
 " LaTeX
 Plug 'lervag/vimtex'
 
+" --- Markdown plugins
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+
 call plug#end()
 
 
@@ -50,8 +56,8 @@ call plug#end()
 " call dein#add('kassio/neoterm')
 " " Sub-buffers & windows
 " call dein#add('romainl/vim-qf')
-" 
-" 
+"
+"
 " call dein#add('Rip-Rip/clang_complete', {
 "     \ 'on_ft': 'cpp',
 "     \ 'hook_add': "
@@ -59,19 +65,19 @@ call plug#end()
 "     \ let g:clang_jumpto_declaration_key = ''\n
 "     \ "
 " \ })
-" 
+"
 " " Syntax highlighting
 " call dein#add('octol/vim-cpp-enhanced-highlight', {'on_ft': 'cpp'})
-" 
+"
 " " Navigation between header and source files
 " call dein#add('nacitar/a.vim', {'on_ft': 'cpp', 'hook_add': "
 "             \ let g:alternateNoDefaultAlternate = 1\n
 "             \ let g:alternateSearchPath = 'sfr:../source,sfr:../src,sfr:../include,sfr:../inc,wdr:./include,wdr:./src' . ',reg:/include/src//,reg:/src/include//'\n
 "             \"
 "             \})
-" 
+"
 " " Navigation to function declaration and usage
-" 
+"
 " " s: Find this C symbol
 " " g: Find this definition
 " " d: Find functions called by this function
@@ -95,17 +101,17 @@ call plug#end()
 "  \ let g:cscope_silent = 1\n
 "  \"
 "  \})
-" 
+"
 " " Automatic reformatting of source files
 " call dein#add('rhysd/vim-clang-format', {'on_ft': 'cpp'})
-" 
+"
 " " call dein#add('ludovicchabant/vim-gutentags', {
 " "     \ 'hook_add': "
 " "     \ let g:gutentags_ctags_tagfile = 'tags'\n
 " "     \ let g:gutentags_ctags_exclude = ['*.py', '_build']\n
 " "     \ "
 " " \ })
-" 
+"
 " call dein#add('pboettch/vim-cmake-syntax')
 
 if has("autocmd")
@@ -256,7 +262,7 @@ let g:tex_flavor = 'latex'
 
 " --- Enable syntax highligting for snakemake
 au BufNewFile,BufRead Snakefile set syntax=snakemake | set filetype=snakemake
-au BufNewFile,BufRead *.smk set syntax=snakemake
+au BufNewFile,BufRead *.smk set syntax=snakemake | set filetype=snakemake
 " autocommand to detect .spthy and .sapic files
 augroup filetypedetect
 au BufNewFile,BufRead *.spthy	setf spthy

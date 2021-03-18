@@ -36,16 +36,23 @@ Plug 'ekalinin/Dockerfile.vim'
 Plug 'cespare/vim-toml'
 " Python
 Plug 'python-mode/python-mode'
-" LaTeX
-Plug 'lervag/vimtex'
+" Typescript
+Plug 'peitalin/vim-jsx-typescript'
+Plug 'leafgarland/typescript-vim'
+
+Plug 'neovimhaskell/haskell-vim'
+Plug 'aklt/plantuml-syntax'
+Plug 'pearofducks/ansible-vim'
 
 " --- Markdown plugins
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
-Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+" Plug 'godlygeek/tabular'
+" Plug 'plasticboy/vim-markdown'
+" Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 
 call plug#end()
 
+" set filetypes as typescript.tsx
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
 
 " " Autocomplete
 " call dein#add('Shougo/deoplete.nvim')

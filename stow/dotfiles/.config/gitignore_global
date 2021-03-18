@@ -50,6 +50,7 @@ env/
 *.egg-info/
 .ipynb_checkpoints
 .mypy_cache
+.eggs
 
 # Latexmk files #
 # ###############
